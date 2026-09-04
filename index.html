@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Norte — Uw financiële richting</title>
+<meta name="description" content="Norte. Uw financiële richting. Binnenkort.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230E0E0F'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-size='17' fill='%23F4F1EA'%3EN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --night:#0E0E0F;
+    --cream:#F4F1EA;
+    --lijn:color-mix(in srgb, #F4F1EA 14%, #0E0E0F);
+    --curve:cubic-bezier(.22,1,.36,1);
+    --lijncurve:cubic-bezier(.76,0,.24,1);
+    --sans:"Inter",system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  html,body{height:100%}
+  body{
+    background:var(--night);
+    color:var(--cream);
+    font-family:var(--sans);
+    font-weight:200;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;min-height:100svh;
+    display:grid;
+    grid-template-rows:auto 1fr auto;
+    overflow-x:hidden;
+  }
+  header{
+    width:min(1240px,92vw);
+    margin:0 auto;
+    padding-top:clamp(1.25rem,3vh,2rem);
+    display:flex;justify-content:space-between;
+    font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;font-weight:400;
+    color:color-mix(in srgb, #F4F1EA 55%, #0E0E0F);
+    opacity:0;transition:opacity 1s .4s ease;
+  }
+  header a{color:inherit;text-decoration:none;letter-spacing:.26em;margin-right:-.26em}
+  header a:hover,header a:focus-visible{color:var(--cream)}
+  :focus-visible{outline:1px solid var(--cream);outline-offset:4px}
+  .gordijn{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:6vh 0;
+  }
+  h1{
+    font-size:clamp(2.8rem, 9vw, 8rem);
+    font-weight:200;line-height:1;text-transform:uppercase;
+    letter-spacing:.62em;padding-left:.62em;opacity:0;
+    transition:letter-spacing 1.6s var(--curve), padding-left 1.6s var(--curve), opacity 1.2s ease;
+  }
+  .basislijn{
+    margin-top:.8em;
+    font-size:clamp(.68rem, 1.53vw, 1.36rem); /* 0,17 × woordmerk */
+    font-weight:300;line-height:1;letter-spacing:.16em;padding-left:.16em;text-transform:uppercase;
+    color:color-mix(in srgb, #F4F1EA 68%, #0E0E0F);
+    opacity:0;transform:translateY(.6em);
+    transition:opacity 1s .5s ease, transform 1.2s .5s var(--curve);
+  }
+  form{
+    width:min(1240px,92vw);
+    margin:0 auto clamp(1.5rem,5vh,3.5rem);
+    position:relative;
+  }
+  .haarlijn{height:1px;background:var(--lijn);transform-origin:left;transform:scaleX(0)}
+  .haarlijn.boven{transition:transform 1.05s .9s var(--lijncurve)}
+  .haarlijn.onder{transition:transform 1.05s 1.05s var(--lijncurve)}
+  .rooster{
+    display:grid;
+    grid-template-columns:minmax(14rem,1fr) 2fr;
+    gap:clamp(1rem,3vw,3rem);
+    align-items:end;
+    padding:clamp(1.25rem,3vh,2rem) 0;
+    opacity:0;transition:opacity 1s 1.5s ease;
+  }
+  @media (max-width:759px){.rooster{grid-template-columns:1fr}}
+  .uitleg{display:flex;flex-direction:column;gap:.75rem}
+  .uitleg label{
+    font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;font-weight:400;
+    color:color-mix(in srgb, #F4F1EA 55%, #0E0E0F);
+  }
+  .uitleg p{
+    font-size:clamp(1rem,1.3vw,1.15rem);font-weight:300;line-height:1.4;
+    color:color-mix(in srgb, #F4F1EA 72%, #0E0E0F);max-width:22ch;
+  }
+  .veld{
+    display:flex;align-items:center;gap:1.5rem;
+    border-bottom:1px solid var(--lijn);
+    transition:border-color .55s ease;
+  }
+  .veld:focus-within{border-color:color-mix(in srgb, #F4F1EA 62%, #0E0E0F)}
+  .veld input{
+    flex:1;min-width:0;background:transparent;border:0;outline:0;
+    padding:.6rem 0;color:var(--cream);font-family:inherit;font-weight:200;
+    font-size:clamp(1.4rem,2.4vw,2rem);line-height:1.2;letter-spacing:-.01em;
+  }
+  .veld input::placeholder{color:color-mix(in srgb, #F4F1EA 38%, #0E0E0F);font-weight:200}
+  .veld button{
+    background:none;border:0;padding:.75rem 0 .75rem .75rem;min-height:44px;
+    cursor:pointer;color:var(--cream);display:flex;align-items:center;
+  }
+  .veld svg{overflow:visible;display:block}
+  .schacht{transform-origin:0 6px;transition:transform .55s var(--curve)}
+  .punt{transition:transform .55s var(--curve)}
+  .veld button:hover .schacht,.veld:focus-within .schacht{transform:scaleX(1.9)}
+  .veld button:hover .punt,.veld:focus-within .punt{transform:translateX(23px)}
+  .dank{
+    padding:.6rem 0;border-bottom:1px solid var(--lijn);
+    font-size:clamp(1.4rem,2.4vw,2rem);font-weight:200;line-height:1.2;color:var(--cream);
+  }
+  .honing{position:absolute;left:-5000px;top:0}
+  [hidden]{display:none!important}
+  body.geladen header,body.geladen .rooster{opacity:1}
+  body.geladen h1{opacity:1;letter-spacing:.34em;padding-left:.34em}
+  body.geladen .basislijn{opacity:1;transform:translateY(0)}
+  body.geladen .haarlijn{transform:scaleX(1)}
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none!important}
+    header,.rooster,h1,.basislijn{opacity:1}
+    h1{letter-spacing:.34em;padding-left:.34em}
+    .basislijn{transform:none}
+    .haarlijn{transform:scaleX(1)}
+  }
+</style>
+</head>
+<body>
+<header>
+  <span>Binnenkort</span>
+  <a href="privacy.html">Privacy</a>
+</header>
+
+<section class="gordijn">
+  <h1>Norte</h1>
+  <p class="basislijn">Uw financiële richting</p>
+</section>
+
+<!-- Brevo-formulier "Norte voorpagina — blijf op de hoogte", lijst "Norte — lancering" -->
+<form id="blijf" method="POST" action="https://72f6ef47.sibforms.com/serve/MUIFADnbrrzWHXlew_2XltrKZgZ-CviLmFglN8eD8PmPMwFWdlvj88Ugd-wHA9pH_AQkCTVDSbMCOC9JyjsteiFHLBSZyYIq-6-dOz54ezflE4Vi-GtYOu8DubqhsvDJJXmDH8-HoiMVnjNusG1fYsrTdId5ZNR88NxmBHSakntNe8XbLWvAKznkiJ5SY6cNqresnc8uj65T_FcF9A==">
+  <div class="haarlijn boven" aria-hidden="true"></div>
+  <div class="rooster">
+    <div class="uitleg">
+      <label for="email">Blijf op de hoogte</label>
+      <p>Eén bericht wanneer Norte opent.</p>
+    </div>
+    <div class="veld" id="invoer">
+      <input id="email" name="EMAIL" type="email" required placeholder="uw e-mailadres" autocomplete="email" inputmode="email">
+      <button type="submit" aria-label="Inschrijven">
+        <svg width="48" height="12" viewBox="0 0 48 12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true">
+          <line class="schacht" x1="0" y1="6" x2="20" y2="6"></line>
+          <path class="punt" d="M14.5 .5 L20 6 L14.5 11.5"></path>
+        </svg>
+      </button>
+    </div>
+    <p class="dank" id="dank" hidden>Dank u. U hoort van ons wanneer Norte opent.</p>
+  </div>
+  <div class="haarlijn onder" aria-hidden="true"></div>
+  <input class="honing" type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <input type="hidden" name="locale" value="nl">
+</form>
+
+<script>
+  requestAnimationFrame(function(){ setTimeout(function(){ document.body.classList.add('geladen'); }, 120); });
+
+  var form=document.getElementById('blijf');
+  function toonDank(){
+    document.getElementById('invoer').hidden=true;
+    document.getElementById('dank').hidden=false;
+  }
+  if(new URLSearchParams(location.search).has('ok')) toonDank();
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var data=new FormData(form);
+    fetch(form.action.split('?')[0]+'?isAjax=1',{method:'POST',body:data})
+      .then(function(r){ if(!r.ok) throw 0; toonDank(); })
+      .catch(function(){ form.submit(); }); // form.submit() slaat de listener over → gewone POST met redirect ?ok=1
+  });
+</script>
+</body>
+</html>
