@@ -276,19 +276,31 @@
   }
   function voetLink() {
     if (IN_FRAME) return;
-    var f = document.querySelector('.site-footer > div') || document.querySelector('body > footer');
-    if (f) f.querySelectorAll('a').forEach(function (a) { if (/lege preview/i.test(a.textContent)) a.style.display = 'none'; });
-    if (!f || f.querySelector('.nkl-cv')) return;
-    var b = document.createElement('button'); b.type = 'button'; b.className = 'nkl-cv'; b.textContent = 'Cookies';
-    b.style.cssText = 'border:0;background:none;color:inherit;font:inherit;cursor:pointer;padding:0;margin-left:16px;text-decoration:underline;text-underline-offset:3px';
-    b.addEventListener('click', cookieKeuze); f.appendChild(b);
-    if (!f.querySelector('.nkl-mv')) { var c = document.createElement('button'); c.type = 'button'; c.className = 'nkl-cv nkl-mv'; c.textContent = 'Een bewaard plan openen'; c.style.cssText = b.style.cssText; c.addEventListener('click', mijnPlan); f.appendChild(c); }
+    var f = document.querySelector('.site-footer > div');
+    if (!f) return;
+    f.querySelectorAll('a').forEach(function (a) { if (/lege preview/i.test(a.textContent)) a.style.display = 'none'; });
+    if (f.querySelector('.nkl-cv')) return;
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'nkl-cv';
+    b.textContent = 'Cookie-instellingen';
+    b.setAttribute('aria-haspopup', 'dialog');
+    b.addEventListener('click', cookieKeuze);
+    f.appendChild(b);
   }
 
   /* ---------- kop van de klantenzijde ---------- */
   function kopBijwerken() {
     var a = document.querySelector('.shell-actions'); if (!a || IN_FRAME) return;
-    if (!a.querySelector('.nkl-afspr')) { var b = document.createElement('button'); b.type = 'button'; b.className = 'nkl-kop nkl-afspr'; b.textContent = afsprLabel(); b.addEventListener('click', function () { contact('algemeen'); }); a.insertBefore(b, a.querySelector('.my-plan')); }
+    if (!a.querySelector('.nkl-afspr')) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'nkl-kop nkl-afspr';
+      b.textContent = afsprLabel();
+      b.setAttribute('aria-haspopup', 'dialog');
+      b.addEventListener('click', function () { contact('algemeen'); });
+      a.insertBefore(b, a.querySelector('.my-plan'));
+    }
     kopAfspraak(); mijnPlanLinks();
   }
   function pensioenZin() {
