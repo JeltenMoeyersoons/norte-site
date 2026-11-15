@@ -19,7 +19,7 @@ const source=document.querySelector('#source-link');
 source.href='https://www.youtube.com/watch?v='+selected.id+'&t='+selected.start;
 source.textContent=selected.credit+' · YouTube';
 let player, ready=false, apiRequested=false, phase='idle', generation=0;
-let intent=sessionRead('norte-audio')==='off'?'off':'auto';
+let intent=sessionRead('norte-audio')==='on'?'on':'off';
 let blocked=false, suspended=false, resumeWithSound=false, lastCaptions;
 let tickTimer, loadTimer, watchdog, phaseTimer, navigationTimer, startGate;
 let rampStart=0, commandedVolume=-1, curve=[];
@@ -203,6 +203,7 @@ soundButton.addEventListener('click',()=>{
  player.playVideo();startTick();soundLabel();
 });
 document.querySelector('#skip').addEventListener('click',()=>showChoices());
+document.querySelector('#intro-cookies').addEventListener('click',()=>window.NorteKlant?.cookies());
 // Reuse the document/player, so replay does not discard the preceding real click.
 document.querySelector('#replay').addEventListener('click',()=>startIntro());
 document.querySelectorAll('[data-choice]').forEach(link=>{
@@ -225,6 +226,8 @@ document.addEventListener('visibilitychange',()=>{
 window.addEventListener('pagehide',()=>{cancelRun();setPhase('leaving');silence();});
 if (params.get('ok') === '1') {
   location.replace('/op-de-hoogte.html?ok=1');
-} else {
+} else if (params.get('intro') === 'overslaan' || (reduceMotion && params.get('intro') !== 'opnieuw')) {
   showChoices(false);
+} else {
+  startIntro();
 }
