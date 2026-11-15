@@ -19,7 +19,7 @@ const source=document.querySelector('#source-link');
 source.href='https://www.youtube.com/watch?v='+selected.id+'&t='+selected.start;
 source.textContent=selected.credit+' · YouTube';
 let player, ready=false, apiRequested=false, phase='idle', generation=0;
-let intent=sessionRead('norte-audio')==='on'?'on':'off';
+let intent=sessionRead('norte-audio')==='off'?'off':'on';
 let blocked=false, suspended=false, resumeWithSound=false, lastCaptions;
 let tickTimer, loadTimer, watchdog, phaseTimer, navigationTimer, startGate;
 let rampStart=0, commandedVolume=-1, curve=[];
