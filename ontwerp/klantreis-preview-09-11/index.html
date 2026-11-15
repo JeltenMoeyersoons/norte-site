@@ -1,0 +1,58 @@
+<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Norte · Mijn plan</title>
+<link rel="stylesheet" href="/assets/fonts.css">
+<style>
+:root{--ink:#14161A;--paper:#F6F3EC;--surf:#FCFAF5;--line:rgba(20,22,26,.12);--ink2:#3A3C40;--ink3:#5C5E62;--ease:cubic-bezier(.2,0,0,1)}
+html,body{margin:0;background:var(--ink);color:var(--ink);font:400 15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.top{height:96px;display:flex;align-items:center;padding:0 clamp(22px,3.8vw,64px)}
+.top img{display:block}
+main{max-width:720px;margin:0 auto 64px;padding:0 22px}
+.card{background:var(--paper);border-radius:14px;padding:40px 44px 32px}
+h1{font:500 30px/1.15 Manrope,Inter,sans-serif;letter-spacing:-.015em;margin:0 0 10px}
+.lead{margin:0 0 28px;color:var(--ink2);max-width:52ch}
+ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+li{border-bottom:1px solid var(--line)}
+li a{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 24px;align-items:center;padding:18px 4px;color:inherit;text-decoration:none;border-radius:8px;transition:background-color .18s var(--ease)}
+li a:hover{background:rgba(20,22,26,.04)}
+li a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.t{font-weight:500;font-size:16px}
+.s{grid-column:1;font-size:13px;color:var(--ink3)}
+.v{grid-column:2;grid-row:1/span 2;font-size:14px;font-weight:500;white-space:nowrap}
+.alt{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:26px;align-items:center}
+.alt a{color:var(--ink);font-size:14px;text-underline-offset:3px}
+.note{margin:22px 0 0;font-size:12.5px;color:var(--ink3)}
+@media (prefers-reduced-motion:reduce){li a{transition:none}}
+@media (max-width:600px){.card{padding:28px 22px 24px}h1{font-size:25px}}
+</style></head><body>
+<header class="top"><a href="/koers/#start" aria-label="Norte startpagina"><img src="/assets/logo.svg" width="114" height="32" alt="Norte"></a></header>
+<main id="main" hidden><div class="card"><h1 id="h" tabindex="-1">Uw plannen in deze browser</h1><p class="lead">Kies waar u verder wilt gaan. Er wordt niets gewist of samengevoegd.</p><ul id="lijst" aria-labelledby="h"></ul>
+<div class="alt"><a id="leeg" href="#">Een nieuw, leeg plan beginnen</a><a href="/koers/#start">Naar de startpagina</a></div>
+<p class="note">Bewaard in deze browser op dit toestel. Een andere browser of een ander toestel ziet deze plannen niet.</p></div></main>
+<script>
+/* Previewingang.
+ * ?leeg=1        opent een nieuwe, eigen previewsessie: niets wordt gewist; eerdere plannen blijven bewaard.
+ * ?mijnplan=1    zoekt de bewaarde previewplannen in deze browser (alleen lezen) en hervat er één, of laat rustig kiezen.
+ * Alleen sleutels met het previewvoorvoegsel worden gelezen; de oude klantreis (norte-r30) wordt niet gelezen of gemigreerd. */
+(function(){
+var q=new URLSearchParams(location.search),P='norte-preview-20261109-r1',DOELEN=['groei','inkomen','iemand','ander','fiscaal'];
+var nieuw=function(){return (Date.now().toString(36)+Math.random().toString(36).slice(2,10)).replace(/[^a-z0-9]/g,'').slice(0,20);};
+if(q.get('leeg')==='1'){var d=q.get('doel');var ex='';['kantoor','campagne','wens','leeftijd'].forEach(function(k){var v=q.get(k);if(v&&/^[a-z0-9-]{1,30}$/.test(v))ex+='&'+k+'='+v;});location.replace('Klantreis.dc.html?sessie='+nieuw()+(DOELEN.indexOf(d)>-1?'&doel='+d:'')+ex);return;}
+if(q.get('mijnplan')!=='1'){location.replace((q.get('instap')==='plan'?'Plan.dc.html':'Klantreis.dc.html')+(location.search||'')+location.hash);return;}
+var lees=function(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}};
+var inhoud=function(o){var pl=(o&&o.pl)||{},gs=(pl.goals||[]).filter(function(g){return g&&!g.later&&!g.k49fis;}),n=gs.map(function(g){return String(g.naam||'Doel');});
+  var fx=pl.fx&&pl.fx.forms,fis=fx&&Object.keys(fx).some(function(k){return fx[k]&&fx[k].on;});if(fis)n.push('Fiscaal sparen');
+  var g0=gs[0],d='';if(g0){var mm=String(g0.mm||'').trim(),ee=String(g0.ee||'').trim();var wn=String(g0.pvWensV||g0.wens||'').trim();d=(g0.lead==='eind'&&g0.pvEindV?'doel € '+g0.pvEindV:mm&&mm!=='0'?'€ '+mm+' per maand':ee?'€ '+ee+' nu':wn?'wens € '+wn+' per maand':'');}n.d=d;return n;};
+var S={},re=/^norte-preview-20261109-r1(?::s-([a-z0-9]{8,24}))?:klantreis-k49(?:-sim-(groei|inkomen|iemand|ander|fiscaal))?$/;
+try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i),m=k&&k.match(re);if(!m)continue;var sid=m[1]||'',x=S[sid]||(S[sid]={sid:sid,plan:null,sims:[]});var o=lees(k);if(m[2])x.sims.push({doel:m[2],n:inhoud(o)});else x.plan=inhoud(o);}}catch(e){}
+var L=Object.keys(S).map(function(sid){var x=S[sid],mt=lees(P+(sid?':s-'+sid:'')+':meta')||{},naam,href,soort;
+  if(x.plan&&x.plan.length){naam=x.plan;soort='Plan';href='Plan.dc.html?instap=plan'+(sid?'&sessie='+sid:'');}
+  else{var sm=x.sims.filter(function(s){return s.n.length;})[0];if(!sm)return null;naam=sm.n;soort='Simulatie';href='Klantreis.dc.html?'+(sid?'sessie='+sid+'&':'')+'doel='+sm.doel;}
+  return {sid:sid,naam:naam,soort:soort,href:href,t:Number(mt.t)||0};}).filter(Boolean).sort(function(a,b){return b.t-a.t;});
+if(!L.length){location.replace('Plan.dc.html?instap=plan&sessie='+nieuw());return;}
+if(L.length===1){location.replace(L[0].href);return;}
+var esc=function(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+var wanneer=function(t){if(!t)return 'eerder bewaard';try{return 'laatst geopend '+new Date(t).toLocaleString('nl-BE',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});}catch(e){return '';}};
+document.getElementById('lijst').innerHTML=L.map(function(x){return '<li><a href="'+esc(x.href)+'"><span class="t">'+esc(x.naam.join(' · '))+'</span><span class="s">'+esc([x.soort,x.naam.d,wanneer(x.t)].filter(Boolean).join(' · '))+'</span><span class="v">Verder <span aria-hidden="true">→</span></span></a></li>';}).join('');
+document.getElementById('leeg').href='Plan.dc.html?instap=plan&sessie='+nieuw();
+var mn=document.getElementById('main');mn.hidden=false;document.getElementById('h').focus({preventScroll:true});
+})();
+</script></body></html>

@@ -1,0 +1,32 @@
+/* Quiet explanation in the existing reading system. No new marketing layer. */
+.return-warning{margin:26px 0;padding:19px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.return-warning p{max-width:58ch}
+.return-warning a{display:inline-flex;align-items:center;gap:15px;min-height:44px;text-decoration:underline;text-underline-offset:4px;font-size:13px}
+.return-warning a svg{width:18px;height:18px}
+.plan-tabcontent .return-warning,.stage-work .return-warning{border-color:#ffffff3b;color:var(--paper)}
+.cost-test .return-warning{color:var(--ink);margin-top:23px;margin-bottom:0;padding-bottom:8px;border-bottom:0}
+.cost-test .return-warning p{font-size:12px}
+.assumptions-entry{display:flex;align-items:center;justify-content:space-between;gap:40px;padding:30px 34px;margin-top:34px;background:var(--paper);color:var(--ink);border-radius:12px;text-decoration:none}
+.assumptions-entry .small-label{color:var(--grey)}
+.assumptions-entry h2{font-size:35px;margin-top:13px;max-width:24ch}
+.assumptions-entry>span{display:flex;gap:28px;align-items:center;font-size:14px;max-width:27ch}
+.assumptions-entry:hover h2{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+.assumptions-reading .article-body h3{font-size:25px;margin:31px 0 18px;line-height:1.25}
+.article-risk{border-left:2px solid var(--petrol);padding-left:17px;font-size:14px;line-height:1.7;margin-top:24px;max-width:54ch;color:var(--grey)}
+.finance-term{display:inline;color:var(--petrol);font:inherit;padding:2px 0;margin:0;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:4px;border-radius:0;vertical-align:baseline;text-align:left}
+.finance-term:hover{text-decoration-style:solid}
+.finance-term:focus-visible{outline:2px solid var(--petrol);outline-offset:3px}
+.article-calculation-context{margin-top:27px;padding:20px 0;border-block:1px solid var(--line);font-size:14px;line-height:1.75}
+.article-calculation-context p{margin-top:8px;color:var(--grey)}
+.article-calculation-context .back{color:var(--petrol);font-size:13px}
+.method-details{padding:20px 0;border-top:1px solid var(--line);margin-top:23px;font-size:14px;line-height:1.8}
+.method-details summary{cursor:pointer;font-size:17px;min-height:44px;display:list-item;padding:7px 0}
+.method-details p,.method-details ul{margin-top:16px}
+.method-details a{color:var(--petrol);text-decoration:underline;text-underline-offset:3px}
+.method-details li{margin:12px 0}
+.assumptions-aside>p{font-size:13px;line-height:1.8;max-width:29ch;color:var(--muted);margin-top:27px}
+.assumptions-aside .button{font-size:13px;gap:16px;white-space:normal}
+.assumptions-aside>.text-action{display:flex;margin-top:16px;font-size:13px}
+@media(max-width:760px){.assumptions-entry{display:block;padding:26px;margin-top:27px}.assumptions-entry h2{font-size:30px}.assumptions-entry>span{font-size:13px;margin-top:24px;justify-content:space-between;max-width:none}.assumptions-reading .article-body h3{font-size:22px}.article-risk{font-size:13px}.method-details summary{font-size:15px}.method-details{font-size:13px}.article-calculation-context{font-size:13px}.return-warning{font-size:12px}.return-warning a{font-size:12px}.assumptions-aside>p{max-width:40ch}}
+
+.inline-article-link{display:inline-flex;align-items:center;gap:18px;min-height:44px;color:var(--petrol);text-decoration:underline;text-underline-offset:4px;font-size:14px}

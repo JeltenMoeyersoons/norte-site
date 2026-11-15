@@ -1,0 +1,36 @@
+.client-start{max-width:1190px;margin:auto}
+.client-top{display:grid;grid-template-columns:1.65fr 1fr;gap:24px;align-items:stretch}
+.client-task{background:#f6f3ec;color:#14161a;border-radius:14px;padding:32px 40px 24px}
+.client-task h1{font:600 30px/1.3 Manrope,sans-serif;letter-spacing:-.035em;margin:0 0 24px;text-wrap:initial}
+.client-goals a{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:52px;padding:12px 0;font-size:16px;border-bottom:1px solid #e4dfd5}
+.client-goals a:hover{text-decoration:underline;text-underline-offset:4px}
+.client-goals a:focus-visible{outline:2px solid #14161a;outline-offset:3px}
+.client-goals a.client-fiscal{font-size:15px;color:#14161a;border-bottom:0}
+.client-note{font-size:14px;color:#60615f;margin-top:16px}
+.client-plan{background:#2d4b45;border-radius:14px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;gap:48px}
+.client-plan h2{font:500 30px/1.3 Manrope,sans-serif;letter-spacing:-.035em;margin:0 0 12px}
+.client-plan p{font-size:15px;color:#d1dacf}
+.client-plan .button{width:100%;border-radius:10px;min-height:48px;font-size:15px}
+.client-knowledge{display:grid;grid-template-columns:.65fr 1fr;align-items:stretch;gap:48px;margin-top:24px}
+.client-knowledge figure{margin:0;min-height:210px;position:relative;border-radius:14px;overflow:hidden}
+.client-knowledge img{display:block;width:100%;height:100%;position:absolute;object-fit:cover;object-position:25% 15%}
+.client-knowledge>div{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:24px;padding:24px 0}
+.client-knowledge h2{font:500 24px/1.35 Manrope,sans-serif;letter-spacing:-.025em;max-width:23ch;text-wrap:initial}
+.client-credit{font-size:13px;color:var(--muted);margin:12px 0 0}
+.client-credit a{text-decoration:underline;text-underline-offset:3px}
+.site-footer [data-home-internal][hidden]{display:none}
+.sim-conversation{max-width:1190px;margin:auto}
+.sim-conversation>.back{margin-bottom:32px}
+.sim-conversation-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:72px}
+.sim-conversation h1{font:600 30px/1.3 Manrope;margin:0 0 32px}
+.sim-conversation h2{font:600 18px/1.4 Manrope;margin:0 0 20px}
+.sim-conversation dl{margin:0}
+.sim-conversation dl>div{display:grid;grid-template-columns:130px 1fr;gap:24px;margin-bottom:16px;font-size:15px}
+.sim-conversation dt{color:var(--muted)}.sim-conversation dd{margin:0}
+.sim-conversation-limit{font-size:14px;line-height:1.6;color:var(--muted);max-width:45ch;margin-top:32px}
+.sim-note{border:1px solid #565e58;border-radius:14px;padding:32px}
+.sim-note label{display:block;font-size:14px;margin-bottom:12px}
+.sim-note textarea{display:block;resize:vertical;width:100%;min-height:140px;background:#f6f3ec;color:#14161a;padding:16px;border:0;border-radius:10px;font:16px/1.5 Inter;margin-bottom:20px}
+.sim-note .button{border-radius:10px}
+.sim-note>p{font-size:14px;line-height:1.6;color:var(--muted);margin-top:20px}
+@media(max-width:760px){.client-top,.client-knowledge,.sim-conversation-grid{grid-template-columns:1fr;gap:24px}.client-task,.client-plan{padding:24px}.client-knowledge figure{min-height:240px}.client-knowledge>div{padding:0 0 8px}.client-plan{gap:32px}.sim-conversation dl>div{grid-template-columns:1fr;gap:4px}}

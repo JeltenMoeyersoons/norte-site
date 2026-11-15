@@ -1,0 +1,49 @@
+/* Use the established simulator itself. No separate preview or format choice. */
+.activation-home{max-width:1190px;margin:0 auto}
+.activation-home .home-simulation{margin:0;grid-template-columns:.9fr 1.1fr;gap:64px;padding:44px 48px}
+.home-simulation .simulation-intro{display:flex;flex-direction:column;align-items:flex-start}
+.home-simulation .simulation-intro h1{font-size:clamp(42px,4.2vw,62px);max-width:12ch;line-height:1.08}
+.home-simulation .home-simulation-label{font-size:14px;line-height:1.7;color:var(--grey);margin-top:22px}
+.home-simulation .simulation-result{margin-top:24px;padding-top:24px}
+.home-simulation .simulation-result output{font-size:clamp(46px,4.2vw,64px)}
+.home-simulation .calculation-note{margin:22px 0}
+.home-simulation .trial-actions{margin-top:22px}
+.home-simulation .trial-actions>.button{width:100%}
+.activation-alternatives{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+.activation-plan,.activation-learn{display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;padding:29px 34px 24px;border-radius:13px;color:var(--paper);min-width:0;text-decoration:none}
+.activation-plan{background:#2d4b45}
+.activation-learn{border:1px solid #565e58}
+.activation-alternatives h2{font-size:32px;letter-spacing:-.045em;line-height:1.15;max-width:23ch}
+.activation-alternatives h2 br{display:none}
+.activation-alternatives p{font-size:14px;line-height:1.7;color:var(--muted);margin-top:15px}
+.activation-plan p{color:#d1dacf}
+.activation-link{display:flex;align-items:center;justify-content:space-between;width:100%;gap:22px;font-size:14px;margin-top:26px;padding-top:16px;border-top:1px solid #ffffff38;min-height:44px}
+.activation-link svg{width:21px;height:21px}
+.activation-alternatives>a:hover .activation-link{text-decoration:underline;text-underline-offset:5px}
+.activation-alternatives>a:focus-visible{outline-offset:6px}
+@media(min-width:761px) and (max-width:1100px){.activation-home .home-simulation{padding:36px;gap:40px}.home-simulation .simulation-intro h1{font-size:46px}.activation-plan,.activation-learn{padding:27px 28px 23px}.activation-alternatives h2{font-size:29px}}
+@media(max-width:760px){
+ .activation-home .home-simulation{display:flex;flex-direction:column;gap:25px;padding:29px 28px;border-radius:11px}
+ .home-simulation .simulation-intro h1{font-size:38px;max-width:none}
+ .home-simulation .simulation-intro h1 br{display:none}
+ .home-simulation .home-simulation-label{font-size:12px;margin-top:12px}
+ .home-simulation .simulation-fields{gap:24px;grid-template-columns:1.2fr 1fr}
+ .home-simulation .simulation-fields label{font-size:12px;margin-bottom:6px}
+ .home-simulation .amount-input{font-size:34px;min-height:52px}
+ .home-simulation .amount-input input{min-height:52px}
+ .home-simulation .amount-input>span{font-size:27px}
+ .home-simulation .years-control select{font-size:25px;min-height:52px;padding:8px 2px}
+ .home-simulation .amount-control input[type=range]{margin-top:12px}
+ .home-simulation .simulation-result{padding-top:21px;margin-top:21px}
+ .home-simulation .simulation-result output{font-size:45px}
+ .home-simulation .simulation-result p{font-size:13px;margin-top:8px}
+ .home-simulation .calculation-note{font-size:10px;margin:18px 0}
+ .home-simulation .trial-actions{margin-top:18px}
+ .home-simulation .trial-actions>.button{font-size:12px;padding:12px 15px;gap:12px}
+ .activation-alternatives{grid-template-columns:1fr;gap:18px;margin-top:18px}
+ .activation-plan,.activation-learn{padding:25px 28px;border-radius:11px}
+ .activation-alternatives h2{font-size:28px}
+ .activation-alternatives p{font-size:13px;margin-top:12px}
+ .activation-link{font-size:13px;margin-top:22px;padding-top:13px}
+}
+@media(max-width:370px){.activation-home .home-simulation,.activation-plan,.activation-learn{padding:25px 24px}.home-simulation .simulation-intro h1{font-size:33px}.home-simulation .simulation-fields{gap:16px}.home-simulation .amount-input{font-size:30px}.home-simulation .years-control select{font-size:23px}.home-simulation .simulation-result output{font-size:41px}.activation-alternatives h2{font-size:26px}.home-simulation .trial-actions>.button{font-size:11px}}

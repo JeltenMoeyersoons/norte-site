@@ -1,0 +1,59 @@
+/* One focused work surface: input on the left, its consequence on the right. */
+.cf-room-mode #main{padding-bottom:16px}
+.cf-room{width:min(1120px,100%);padding:36px 52px 30px;margin-top:10px;margin-bottom:0;min-height:min(590px,calc(100svh - 146px))}
+.cf-room .cf-position{margin-bottom:32px}
+.cf-room-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.22fr);gap:clamp(48px,7vw,112px)}
+.cf-room h1{font-size:clamp(36px,3.5vw,48px);line-height:1.13;margin:0 0 28px;letter-spacing:-.045em}
+.cf-room-fields{max-width:330px;display:grid;gap:24px}
+.cf-room .cf-field label{font-size:14px;margin-bottom:8px}
+.cf-room .cf-field>div{gap:12px;min-height:61px;border-color:#b9b6ac}
+.cf-room .cf-field input{font-size:36px;min-height:61px;letter-spacing:-.035em;appearance:textfield;-moz-appearance:textfield;font-variant-numeric:tabular-nums}
+.cf-room .cf-field input::-webkit-inner-spin-button,.cf-room .cf-field input::-webkit-outer-spin-button{appearance:none;-webkit-appearance:none;margin:0}
+.cf-room .cf-field>div>span{font-size:26px;color:#60615f}
+.cf-room .cf-field>div:focus-within{border-color:#365c57;box-shadow:0 1px #365c57}
+.cf-room .cf-field input:focus-visible{outline:2px solid #365c57;outline-offset:5px;border-radius:2px}
+.cf-room-result{align-self:center;min-width:0;padding-top:5px}
+.cf-room-result output{display:block}
+.cf-room-label{display:block;font-size:16px;line-height:1.4;color:#60615f;margin-bottom:22px}
+.cf-room-amount{display:block;font:400 clamp(64px,8.6vw,112px)/1.08 Manrope,Arial,sans-serif;letter-spacing:-.065em;white-space:nowrap;color:#365c57;font-variant-numeric:tabular-nums}
+.cf-room-note{font-size:14px;line-height:1.5;color:#60615f;margin-top:18px;min-height:21px}
+.cf-room-ratio{margin-top:46px}
+.cf-room-ratio[hidden]{display:block;visibility:hidden}
+.cf-room-track{height:18px;background:#d6d5ca;position:relative;overflow:hidden;border-radius:4px}
+.cf-room-used{position:absolute;inset:0;transform-origin:left;background:#cacbbd}
+.cf-room-over{position:absolute;top:0;bottom:0;background:#365c57}
+.cf-room-legend{display:flex;justify-content:space-between;gap:18px;margin-top:13px;font-size:12px;line-height:1.4;color:#60615f}
+.cf-room-legend-right{color:#365c57}
+.cf-room-result[data-status=empty] .cf-room-amount,.cf-room-result[data-status=invalid] .cf-room-amount{color:#888a80}
+.cf-room-result[data-status=deficit] .cf-room-amount,.cf-room-result[data-status=deficit] .cf-room-legend-right{color:#964c35}
+.cf-room-result[data-status=deficit] .cf-room-over{background:#964c35}
+.cf-room-result[data-compact=true] .cf-room-amount{font-size:clamp(39px,5.4vw,72px)}
+.cf-room .cf-room-actions{margin-top:38px;padding-top:26px;border-top:1px solid #d2cec3}
+.cf-room .cf-room-actions .button{min-width:190px}
+@media(min-width:761px){.cf-room .cf-room-actions .button{min-height:51px}}
+@media(max-width:900px) and (min-width:761px){.cf-room{padding:32px 36px}.cf-room-grid{gap:48px}.cf-room-amount{font-size:82px}.cf-room h1{font-size:37px}}
+@media(max-width:760px){
+ .cf-room{padding:26px 26px 22px;min-height:calc(100svh - 120px);display:flex;flex-direction:column}
+ .cf-room>form{display:flex;flex-direction:column;flex:1}
+ .cf-room .cf-position{margin-bottom:28px}
+ .cf-room-grid{display:flex;flex-direction:column;gap:32px}
+ .cf-room h1{font-size:34px;margin-bottom:28px}
+ .cf-room-fields{grid-template-columns:1fr 1fr;gap:24px;max-width:none}
+ .cf-room .cf-field label{font-size:12px}
+ .cf-room .cf-field>div{gap:6px;min-height:52px}
+ .cf-room .cf-field input{font-size:27px;min-height:52px}
+ .cf-room .cf-field>div>span{font-size:21px}
+ .cf-room-result{align-self:stretch;padding-top:26px;border-top:1px solid #d2cec3}
+ .cf-room-label{font-size:14px;margin-bottom:14px}
+ .cf-room-amount{font-size:clamp(58px,17vw,88px)}
+ .cf-room-note{font-size:12px;margin-top:12px}
+ .cf-room-ratio{margin-top:24px}
+ .cf-room-track{height:14px}
+ .cf-room-legend{font-size:11px;margin-top:11px}
+ .cf-room .cf-room-actions{margin-top:auto;padding-top:24px;border-top:0;padding-bottom:env(safe-area-inset-bottom,0)}
+ .cf-room .cf-room-actions .button{min-width:150px;min-height:48px;font-size:13px}
+ .cf-room-grid+.cf-error{margin-top:14px}
+ .cf-room-grid{margin-bottom:25px}
+ .cf-room-result[data-compact=true] .cf-room-amount{font-size:clamp(30px,9vw,56px)}
+}
+@media(max-width:370px){.cf-room{padding:24px 22px 20px}.cf-room-fields{gap:18px}.cf-room .cf-field input{font-size:23px}.cf-room h1{font-size:30px}.cf-room-grid{gap:27px}.cf-room .cf-room-actions .button{min-width:130px}}

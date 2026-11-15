@@ -1,0 +1,155 @@
+/* Klantreis · shared presentation roles, scoped to standalone simulation and n51.
+   Native compact plan controls retain their density and financial functions. */
+:where(.reis-simulatie,.nk.n51){--reis-ink:#14161A;--reis-support:#60615F;--reis-line:#C5C0B6;--reis-soft:#E4DFD5;--reis-paper:#F6F3EC;--reis-surface:#FBF9F4;--reis-curve:#365C57}
+/* Same page and logo alignment. Existing task-specific utilities stay available. */
+.reis-simulatie>header,.nk.n51>.kc-top{max-width:1440px;height:78px;padding:0 48px;gap:24px;border:0;box-sizing:border-box}
+.reis-simulatie>header{width:calc(100% - 80px)}
+.reis-simulatie>header img,.nk.n51>.kc-top img{width:100px;height:auto}
+.reis-simulatie>header .reis-context,.nk.n51>.kc-top>span:nth-child(2){font:400 14px/1.5 Inter,Arial,sans-serif;border-left:1px solid #ffffff40;padding-left:24px;color:var(--reis-paper);opacity:1}
+.reis-simulatie #app,.nk.n51 .kc-paper,.nk.n51 .kc-paper.kc-plan-view{max-width:1440px;margin:0 auto;min-height:calc(100svh - 136px);padding:30px 48px 32px;border-radius:14px;box-sizing:border-box}
+.reis-simulatie #app{width:calc(100% - 80px)}
+.nk.n51 .kc-foot{max-width:1440px;padding-left:48px;padding-right:48px;font-size:13px}
+/* The same four-segment progress component; routes/availability remain native. */
+.reis-simulatie .trail,.nk.n51 .kc-progress{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;align-items:stretch;margin:0 0 32px;min-height:44px}
+.reis-simulatie .trail>button,.reis-simulatie .trail>span,.nk.n51 .kc-progress>button{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;gap:9px;min-height:44px;padding:0 0 14px;border:0;border-bottom:2px solid var(--reis-line);border-radius:0;background:none;box-shadow:none;text-align:left;font:400 14px/1.5 Inter,Arial,sans-serif;color:var(--reis-support);opacity:1}
+.reis-simulatie .trail>button:disabled{cursor:default;color:var(--reis-support)}
+.reis-simulatie .trail>.current,.nk.n51 .kc-progress>.current{color:var(--reis-ink);border-bottom-color:var(--reis-curve);font-weight:500}
+.reis-simulatie .reis-stapnummer,.nk.n51 .kc-step-number{display:grid;place-items:center;flex:none;width:21px;height:21px;padding:0;border:1px solid currentColor;border-radius:50%;font:400 11px/1 Inter,Arial,sans-serif}
+.reis-simulatie .current>.reis-stapnummer,.nk.n51 .current>.kc-step-number{background:var(--reis-curve);color:var(--reis-paper);border-color:var(--reis-curve)}
+/* Stable reading columns; full native final plan keeps its richer layout. */
+@media(min-width:1051px){
+ .reis-simulatie .layout,.nk.n51 .kc-workspace{display:grid;grid-template-columns:minmax(330px,400px) minmax(0,1fr);gap:64px;align-items:start}
+ .reis-simulatie .graphic{padding-left:0;border-left:0}
+ .nk.n51.n51-preview .n51-stage-context{min-height:0}
+ .nk.n51.n51-preview .kc-meaning{padding-top:0}
+}
+/* Document context and question are distinct roles. */
+.reis-simulatie .work-title,.nk.n51 .kc-goal-heading h1,.nk.n51 .kc-plan-head h1{font:600 30px/1.3 Manrope,Arial,sans-serif;color:var(--reis-ink);letter-spacing:-.035em;border:0;padding:0;margin:0 0 12px;max-width:none}
+.reis-simulatie .question h1,.nk.n51 .kc-task>h1,.nk.n51 .kc-question,.nk.n51 .kc-goal-heading .kc-question,.nk.n51 .kc-contact h1{font:500 24px/1.35 Manrope,Arial,sans-serif;letter-spacing:-.025em;color:var(--reis-ink);margin:0 0 24px;max-width:30ch}
+/* Same amount field; total discretionary budget deliberately remains 28px. */
+.reis-simulatie .field>span,.nk.n51 .kc-field{font:400 14px/1.5 Inter,Arial,sans-serif;color:var(--reis-support)}
+.reis-simulatie .value,.nk.n51 .kc-money{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--reis-line);padding:4px 0 8px}
+.reis-simulatie .value input,.nk.n51 .kc-money input{font:400 48px/1.2 Inter,Arial,sans-serif;letter-spacing:-.035em;font-variant-numeric:tabular-nums;min-height:0;padding:0;border:0;border-radius:0;background:none;color:var(--reis-ink);min-width:0}
+.reis-simulatie .compact .value input,.nk.n51 .kc-extra .kc-money input{font-size:32px}
+.nk.n51.n51-inzet .kc-money input{font-size:28px}
+.reis-simulatie .value .currency,.nk.n51 .kc-money>span:first-child{font:400 24px/1.2 Inter,Arial,sans-serif;color:var(--reis-support)}
+.nk.n51 .kc-money>.reis-eenheid,.reis-simulatie .value .unit{font:400 15px/1.5 Inter,Arial,sans-serif;color:var(--reis-support);white-space:nowrap;flex:none}
+.nk.n51 .kc-term input{font:400 48px/1.2 Inter,Arial,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.035em;height:70px}
+/* The same two-view switch. */
+.reis-simulatie .modes,.nk.n51 :is(.kc-directions,.kc-ps-methods){display:flex;gap:0;margin:0 0 24px;padding:0;border:0;border-bottom:1px solid var(--reis-line);border-radius:0;background:none}
+.reis-simulatie .modes label,.nk.n51 :is(.kc-directions,.kc-ps-methods) button{flex:1;padding:12px 8px;min-height:48px;position:relative;border:0;border-radius:0;background:none;box-shadow:none;color:var(--reis-support);font:400 15px/1.5 Inter,Arial,sans-serif;text-align:center}
+.reis-simulatie .modes label:has(input:checked),.nk.n51 :is(.kc-directions,.kc-ps-methods) button[aria-pressed=true]{background:none;box-shadow:0 2px var(--reis-ink);color:var(--reis-ink);font-weight:500}
+/* Ordered profile scale in both runtimes; native term/motivation contract stays intact. */
+.reis-simulatie .profiles,.nk.n51 .kc-strategy-options{display:flex;gap:0;position:relative;margin:24px -8px 20px;padding:0;border:0;background:none}
+.reis-simulatie .profiles:before,.nk.n51 .kc-strategy-options:before{content:'';position:absolute;left:10%;right:10%;top:12px;height:1px;background:var(--reis-line)}
+.reis-simulatie .profiles label,.nk.n51 .kc-strategy-options button{flex:1;min-width:0;position:relative;min-height:56px;padding:0 4px;border:0;border-radius:0;background:none!important;color:var(--reis-ink);text-align:center;font:400 13px/1.55 Inter,Arial,sans-serif;box-shadow:none;cursor:pointer}
+.reis-simulatie .profiles input,.nk.n51 .kc-strategy-options button:before{content:'';display:block;position:relative;box-sizing:border-box;width:24px;height:24px;margin:0 auto 12px;border:1px solid var(--reis-line);border-radius:50%;background:var(--reis-paper)}
+.reis-simulatie .profiles input:checked,.nk.n51 .kc-strategy-options button[aria-pressed=true]:before{border:7px solid var(--reis-ink)}
+.reis-simulatie .profiles label:has(input:checked),.nk.n51 .kc-strategy-options button[aria-pressed=true]{font-weight:600}
+.reis-simulatie .profiles label:has(input:disabled),.nk.n51 .kc-strategy-options button:disabled{color:var(--reis-support);cursor:default}
+/* Same primary action, with back left and forward right. */
+.reis-simulatie .actions,.nk.n51 .kc-actions{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-top:32px;padding-top:24px;border-top:1px solid var(--reis-soft)}
+.reis-simulatie .actions>.back{order:-1}
+.reis-simulatie .actions>.primary{margin-left:auto}
+.reis-simulatie .primary,.nk.n51 .kc-actions .cta,.nk.n51 .kc-plan-footer .cta,.nk.n51 #nextBtn{font:500 15px/1.5 Inter,Arial,sans-serif;min-height:48px;height:auto;border:0;border-radius:10px;padding:12px 24px;background:var(--reis-ink);color:var(--reis-paper)}
+.reis-simulatie .back,.nk.n51 .kc-back{font:400 14px/1.5 Inter,Arial,sans-serif;color:var(--reis-support);min-height:44px}
+/* Disclosure and reading are roles, independent of the content behind them. */
+.reis-simulatie .graph-settings summary,.reis-simulatie details>summary,.nk.n51 .kc-explain>summary,.nk.n51 .kc-taxdetails>summary{font:400 15px/1.5 Inter,Arial,sans-serif;color:var(--reis-ink);min-height:44px;display:flex;align-items:center;justify-content:space-between;text-decoration:none}
+.reis-simulatie details>summary:after,.nk.n51 .kc-explain>summary:after,.nk.n51 .kc-taxdetails>summary:after{content:'';display:block;flex:none;width:8px;height:8px;margin:0 4px 4px 12px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg)}
+.reis-simulatie details[open]>summary:after,.nk.n51 .kc-explain[open]>summary:after,.nk.n51 .kc-taxdetails[open]>summary:after{transform:rotate(225deg);margin-bottom:-4px}
+.nk.n51 .kc-explain{max-width:none;color:var(--reis-support);border-color:var(--reis-soft)}
+/* One curve grammar; areas still encode multi-goal totals, not an alternative curve. */
+.reis-simulatie .chart .mainline,.nk.n51 .kc-meaning .b26tot{stroke:var(--reis-curve);stroke-width:2.3;fill:none;stroke-linejoin:round;stroke-linecap:round}
+.nk.n51 .kc-meaning .b26band{fill-opacity:.08!important}
+.nk.n51 .kc-meaning .b26svg rect[fill="url(#b26-uit)"]{display:none}
+.reis-simulatie .chart text,.nk.n51 .b26yl,.nk.n51 .b26tk,.nk.n51 #chart text{font-family:Inter,Arial,sans-serif;font-size:12px;font-weight:400}
+.reis-simulatie .legend,.nk.n51 .b26nm{font:400 14px/1.5 Inter,Arial,sans-serif;color:var(--reis-support)}
+.reis-simulatie .chart-read-tooltip,.nk.n51 #chartTooltip{font:400 13px/1.5 Inter,Arial,sans-serif;border-radius:10px;background:var(--reis-surface);color:var(--reis-ink)}
+.reis-simulatie .chart-read-tooltip strong,.nk.n51 #chartTooltip .tooltip-value strong{font:500 16px/1.5 Inter,Arial,sans-serif;font-variant-numeric:tabular-nums}
+.reis-simulatie .chart-read-tooltip b,.nk.n51 #chartTooltip .tooltip-date{font:500 13px/1.5 Inter,Arial,sans-serif}
+.reis-simulatie .graphic .answer,.nk.n51 .kc-metric>strong,.nk.n51 .kc-plan-result strong{font:400 36px/1.25 Inter,Arial,sans-serif;letter-spacing:-.035em;font-variant-numeric:tabular-nums;color:var(--reis-ink)}
+.reis-simulatie .fiscal-metric strong,.nk.n51 .kc-benefit>strong{font:400 24px/1.3 Inter,Arial,sans-serif;letter-spacing:-.025em;font-variant-numeric:tabular-nums}
+/* Focus belongs to the same component, including the whole amount field. */
+.reis-simulatie :is(button,a,summary,input,select):focus-visible,.nk.n51 :is(button,a,summary,input,select):focus-visible{outline:2px solid var(--reis-ink);outline-offset:3px}
+.reis-simulatie .value input:focus-visible,.nk.n51 .kc-money input:focus-visible{outline:none}
+.reis-simulatie .value:focus-within,.nk.n51 .kc-money:focus-within{outline:2px solid var(--reis-ink);outline-offset:6px}
+/* Keep existing narrow-screen reflow; no mobile redesign in this change. */
+@media(max-width:1050px){.reis-simulatie>header{width:calc(100% - 48px)}.reis-simulatie #app{width:calc(100% - 48px)}}
+@media(max-width:900px){.reis-simulatie>header,.nk.n51>.kc-top{padding-left:24px;padding-right:24px}.reis-simulatie #app,.nk.n51 .kc-paper,.nk.n51 .kc-paper.kc-plan-view{padding:24px}.reis-simulatie .trail,.nk.n51 .kc-progress{gap:8px}.reis-simulatie .trail>button,.reis-simulatie .trail>span,.nk.n51 .kc-progress>button{font-size:12px}}
+
+/* Keep plot identity when input rows already provide the figures. */
+.nk.n51 .kc-meaning .b26tot{opacity:1!important;stroke-opacity:1!important}
+.reis-simulatie #app>.actions{width:100%}
+.reis-simulatie .actions .back:before{content:"←";margin-right:10px}
+
+.reis-simulatie .profiles input:focus-visible{outline:none}
+.reis-simulatie .profiles label:has(input:focus-visible){outline:2px solid var(--reis-ink);outline-offset:3px}
+.nk.n51 .kc-benefit .kc-link{margin-right:20px}
+
+/* Ordinary question previews: same line/grid/legend/readout grammar.
+   These rules never target Astra's final plan. Existing source scale and values remain intact. */
+@media(min-width:1051px){
+ .nk.n51 .kc-meaning .b26plot{margin-left:104px;width:calc(100% - 104px);height:320px!important;min-height:320px}
+ .nk.n51 .kc-meaning .b26yl{transform:translateX(-100%);margin-left:-12px;margin-top:8px;font:400 12px/1.2 Inter,Arial,sans-serif;color:var(--reis-support)}
+}
+.nk.n51.reis-preview-enkel .kc-meaning .b26band{fill-opacity:0!important}
+.nk.n51.reis-preview-enkel .kc-meaning .b26nm{display:none}
+.nk.n51 .kc-meaning .b26tick,.nk.n51 .kc-meaning .b26mla{white-space:pre-line;text-align:center;font:400 12px/1.5 Inter,Arial,sans-serif;color:var(--reis-support)}
+.nk.n51 .kc-meaning .b26grid{stroke:var(--reis-soft);stroke-width:1}
+.nk.n51 .kc-meaning .b26svg>g[style]>.b26pt{fill:var(--reis-paper);stroke:var(--reis-curve);stroke-width:1.7}
+.nk.n51 .kc-meaning .b26maatl{background:var(--reis-surface);border:1px solid var(--reis-soft);border-radius:10px;padding:8px 12px;font:500 16px/1.5 Inter,Arial,sans-serif;color:var(--reis-ink)}
+.nk.n51 .kc-meaning .b26maatl .b26ctx{font:400 13px/1.5 Inter,Arial,sans-serif;color:var(--reis-support)}
+.nk.n51 .reis-preview-legenda{display:flex;gap:20px;margin:16px 0 0;padding:0;min-height:24px}
+.nk.n51 .reis-preview-legenda button{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:0;border:0;background:none;font:400 14px/1.5 Inter,Arial,sans-serif;color:var(--reis-support);text-align:left}
+.nk.n51 .reis-legenda-lijn{display:inline-block;width:20px;height:0;border-top:2px solid var(--reis-curve)}
+
+.nk.n51 .kc-tax-range{accent-color:var(--reis-ink)}
+.nk.n51 .kc-tax-range::-webkit-slider-thumb{background:var(--reis-ink)}
+.nk.n51 .kc-tax-range::-webkit-slider-runnable-track{background:var(--reis-line)}
+/* Correction 5: the displayed SVG type size compensates for the actual viewBox scale. */
+.reis-simulatie .chart text{font-size:var(--reis-axis-font,12px)}
+.reis-simulatie .chart .plot-loss,.reis-simulatie .chart .plot-goal{font-size:calc(var(--reis-axis-font,12px) * 1.1666667)}
+.reis-simulatie .chart-read-tooltip>strong{font:500 13px/1.5 Inter,Arial,sans-serif}
+.reis-simulatie .chart-read-tooltip div b{font:500 16px/1.5 Inter,Arial,sans-serif}
+.reis-simulatie .chart-read-tooltip div span{font:400 13px/1.5 Inter,Arial,sans-serif}
+.nk.n51 .kc-meaning .b26maatl{display:flex;flex-direction:column;gap:4px;min-width:180px;padding:12px 16px;border-color:var(--reis-line);text-align:left}
+.nk.n51 .kc-meaning .b26maatl .b26ctx{order:-1;font:500 13px/1.5 Inter,Arial,sans-serif}
+.reis-simulatie .graphic .approx-label,.nk.n51 .kc-metric .approx-label{display:inline;font:400 14px/1.5 Inter,Arial,sans-serif;letter-spacing:0;color:var(--reis-support)}
+.nk.n51 .kc-risk{font:400 14px/1.6 Inter,Arial,sans-serif;color:var(--reis-support);margin-top:20px}
+/* One fiscal amount input and primary benefit, in the same question-column order. */
+.reis-simulatie .formula-label,.nk.n51 .formula-label{display:flex;flex-direction:column;gap:4px;font:400 15px/1.5 Inter,Arial,sans-serif}
+.reis-simulatie .formula-label small,.nk.n51 .formula-label small{display:block;font:400 14px/1.5 Inter,Arial,sans-serif;color:inherit}
+.nk.n51 .payer{font:400 16px/1.55 Inter,Arial,sans-serif;color:var(--reis-ink);margin:0 0 24px}
+.nk.n51 .reis-fiscal-result{display:block;margin-top:24px;color:var(--reis-ink)}
+.nk.n51 .reis-fiscal-result>strong{display:block;font:400 24px/1.3 Inter,Arial,sans-serif;letter-spacing:-.025em;color:var(--reis-ink);font-variant-numeric:tabular-nums}
+.nk.n51 .reis-fiscal-result>span,.nk.n51 .reis-fiscal-result>small{display:block;font:400 14px/1.6 Inter,Arial,sans-serif;color:var(--reis-support)}
+.nk.n51 .reis-fiscal-result>.hint{font:400 14px/1.6 Inter,Arial,sans-serif;color:var(--reis-support);margin:16px 0 0}
+.nk.n51 .reis-fiscal-links{display:flex;gap:8px 20px;flex-wrap:wrap;margin-top:12px}
+.nk.n51 .reis-fiscal-links .n51-kennis{margin:0}
+.nk.n51 .reis-fiscal-detail{padding-top:8px}
+.nk.n51 .reis-fiscal-detail .kc-tax-bar{margin-top:0}
+.nk.n51 .kc-meaning .b26maatl .b26ctx{text-align:left}
+/* The existing guarded plan-contact return is the same customer family; guided remains outside. */
+.nk.n51-plan-return .question h1{font:500 24px/1.35 Manrope,Arial,sans-serif;letter-spacing:-.025em;margin:0 0 24px;color:var(--reis-ink)}
+.nk.n51-plan-return .actions{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-top:32px;padding-top:24px;border-top:1px solid var(--reis-soft);width:100%}
+.nk.n51-plan-return .actions>.back{order:-1;font:400 14px/1.5 Inter,Arial,sans-serif;min-height:44px}
+.nk.n51-plan-return .actions>.primary{margin-left:auto;font:500 15px/1.5 Inter,Arial,sans-serif;min-height:48px;border-radius:10px;padding:12px 24px;background:var(--reis-ink);color:var(--reis-paper)}
+
+/* Herstel 7 nov · F3: één doorlopende reis zonder herstartende nummers. Fasen tonen afgerond/actueel/volgend. */
+.reis-simulatie .reis-stapnummer,.nk.n51 .kc-step-number{font-size:0;position:relative}
+.reis-simulatie .reis-stapnummer::after,.nk.n51 .kc-step-number::after{content:"";position:absolute;inset:0;margin:auto;width:7px;height:7px;border-radius:50%}
+.reis-simulatie .current>.reis-stapnummer::after,.nk.n51 .current>.kc-step-number::after{background:var(--reis-paper,#F6F3EC)}
+.reis-simulatie .done>.reis-stapnummer,.nk.n51 .done>.kc-step-number{background:transparent;border-color:var(--reis-curve,#365C57)}
+.reis-simulatie .done>.reis-stapnummer::after,.nk.n51 .done>.kc-step-number::after{width:9px;height:5px;border-radius:0;border-left:1.5px solid var(--reis-curve,#365C57);border-bottom:1.5px solid var(--reis-curve,#365C57);transform:translateY(-1px) rotate(-45deg)}
+/* Herstel 7 nov · A5: dezelfde kopfamilie in simulatie en plan */
+.nk .kc-top .site-return{margin-left:auto;color:inherit;font:400 15px Inter,Arial,sans-serif;text-decoration:underline;text-underline-offset:4px;min-height:44px;display:inline-flex;align-items:center}
+.nk .kc-top #kc-help{margin-left:0}
+.nk .n51-stage-context{margin-bottom:24px}
+/* Herstel ronde 4 · A5: hetzelfde afleesvenster in simulatie en plan (presentatie-adapter, motoren ongemoeid) */
+.nk.n51 .astra .chart-tooltip{background:#FBF9F4;border:1px solid #C5C0B6;border-radius:10px;box-shadow:none;padding:12px 16px;min-width:180px;color:#14161A;font:400 13px/1.5 Inter,Arial,sans-serif}
+.nk.n51 .astra .tooltip-date{color:#14161A;font:500 13px/1.5 Inter,Arial,sans-serif;border-bottom:0;padding-bottom:4px;margin-bottom:4px}
+.nk.n51 .astra .tooltip-value{font-variant-numeric:tabular-nums}
+.reis-simulatie .chart-read-tooltip{font-variant-numeric:tabular-nums}
+/* Herstel ronde 5: fiscale verdieping als één rustige rij */
+.nk.n51 .reis-fiscal-links{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 24px}
+.nk.n51 .reis-fiscal-links .kc-link{font:400 14px/1.5 Inter,Arial,sans-serif}

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="nl-BE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kennis — Norte</title>
+<meta name="description" content="Norte Kennis — kennisomgeving over sparen en beleggen.">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="css/norte.css?v=r75-448c886ecb31">
+<link rel="stylesheet" href="css/kennis34.css?v=34-2">
+<link rel="stylesheet" href="/klantlaag/norte-klant.css?v=r74-dd1b9d2cb7d7"><script src="/klantlaag/norte-klant.js?v=publicatie-20261115" defer></script></head>
+<body>
+<a class="skip" href="#main">Naar de inhoud</a>
+<div id="achtergrond">
+<header class="kop">
+  <div class="wrap kop-in">
+    <div class="logo"><a href="/koers/#start" aria-label="Norte startpagina"><img src="assets/logo-inkt.svg" alt="Norte" width="110" height="24"></a><a href="#/" class="logo-sub" data-artikeloverzicht aria-label="Kennis, naar alle artikels">Kennis</a></div>
+    <nav class="hoofdnav" aria-label="Hoofdnavigatie">
+      <a href="#/leren/kennischeck" class="kennis-uitnodiging">Kennischeck</a><a href="/ontwerp/klantreis-preview-09-11/?mijnplan=1" class="my-plan nkl-kmijn">Mijn plan</a><a href="#" class="nkl-kafspr" onclick="event.preventDefault();window.NorteKlant&&NorteKlant.contact('algemeen')">Contact</a>
+    </nav>
+  </div>
+</header>
+<div id="app"></div>
+<footer class="voet">
+  <div class="wrap voet-in">
+    <p>Norte Kennis. Educatieve inhoud, geen persoonlijk advies. Alleen meten met uw toestemming. Wat u leest en invult, blijft in deze browser.</p>
+  </div>
+</footer>
+</div>
+<dialog id="leerlaag" class="leerlaag" aria-labelledby="laag-kop"><div id="laag-paneel" class="laag-paneel"></div></dialog>
+<script src="js/rekenkern.js"></script>
+<script src="js/content.js?v=r56"></script>
+<script src="js/planbron-koopkracht.js?v=38c29a8c26c8"></script>
+<script src="js/checks.js?v=8b1c9fe5a95d"></script>
+<script src="js/kennischeck.js?v=34-2"></script>
+<script src="js/redactie.js?v=98a4ce75dec7"></script>
+<script src="js/actua.js?v=e0f384f5fc98"></script>
+<script src="js/kennisreis.js?v=8409da73aa4e"></script>
+<script src="js/verhalen.js?v=b568e21a3718"></script>
+<script src="js/fotografie.js?v=320a79fd01ab"></script>
+<script src="js/legacy-routes.js?v=f59605e31955"></script><script src="/gedeeld/norte-project.js?v=ronde6"></script><script src="/gedeeld/kennis-plan-brug.js?v=herstel-1"></script><script>/* ingebed vanuit de klantenflow: het artikel naast de vervaagde kennisbank, met altijd een duidelijke weg terug naar de flow */
+(function(){var q=new URLSearchParams(location.search);if(q.get('ingebed')!=='1'||window.parent===window)return;
+document.documentElement.classList.add('ingebed');var plan=q.get('terug')==='plan';
+/* ronde 61: opent de flow rechtstreeks een les, dan geen flits van de kennisstart erachter */
+var les=function(){document.documentElement.classList.toggle('ingebed-les',/^#\/leren\//.test(location.hash));};les();window.addEventListener('hashchange',les);
+/* ronde 64: in de flow loopt de leesroute door (stuk 1 → 2 → 3) en sluit af met de weg terug; het slotartikel biedt het gesprek aan */
+var gesprek=function(){try{parent.postMessage({norte:'kennis-gesprek'},location.origin);}catch(e){}};
+document.addEventListener('click',function(e){var g=e.target.closest&&e.target.closest('.kv-gesprek:not([data-gespreksartikel])');if(g){e.preventDefault();gesprek();}},true);
+var terug=function(){try{parent.postMessage({norte:'kennis-terug'},location.origin);}catch(e){}};
+var A=window.NorteKennisPlanAdapter||{};A.simRetour=function(){return plan?null:'#terug';};A.planRetour=function(){return '#terug';};window.NorteKennisPlanAdapter=A;
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-plan-retour],.ingebed-terug');if(a){e.preventDefault();e.stopPropagation();terug();}},true);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){e.preventDefault();terug();}});
+document.addEventListener('DOMContentLoaded',function(){var t='<span aria-hidden="true">&larr;</span> Terug naar uw '+(plan?'plan':'simulatie');var b=document.createElement('button');b.type='button';b.className='ingebed-terug';b.innerHTML=t;b.setAttribute('aria-hidden','true');b.tabIndex=-1;document.body.appendChild(b);
+/* ronde 62: een duidelijke weg terug bovenaan, in de kop; de zwevende knop verschijnt pas wanneer de kop uit beeld is */
+var nav=document.querySelector('.hoofdnav');if(nav){var k=document.createElement('button');k.type='button';k.className='ingebed-terug ingebed-kop';k.innerHTML=t;nav.appendChild(k);
+if('IntersectionObserver' in window){new IntersectionObserver(function(es){var weg=!es[0].isIntersecting;document.documentElement.classList.toggle('ingebed-zweef',weg);b.tabIndex=weg?0:-1;b.setAttribute('aria-hidden',weg?'false':'true');}).observe(k);}else{document.documentElement.classList.add('ingebed-zweef');b.tabIndex=0;b.removeAttribute('aria-hidden');}}});})();</script>
+<style>html.ingebed .nkl-kmijn,html.ingebed .nkl-kafspr{display:none!important}.ingebed-terug{display:none}html.ingebed .ingebed-terug{display:inline-flex;align-items:center;gap:10px;position:fixed;left:50%;bottom:28px;transform:translate(-50%,12px);opacity:0;pointer-events:none;z-index:50;padding:15px 24px;border-radius:10px;border:0;background:#14161A;color:#F4F1EA;font:500 16px/1 Inter,system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.28);cursor:pointer;transition:opacity .18s ease,transform .18s ease}html.ingebed.ingebed-zweef .ingebed-terug{opacity:1;transform:translate(-50%,0);pointer-events:auto}html.ingebed .ingebed-terug:hover{background:#2A2D33}html.ingebed .ingebed-terug:focus-visible{outline:2px solid #14161A;outline-offset:3px;box-shadow:0 0 0 5px #F4F1EA}html.ingebed .ingebed-terug.ingebed-kop{position:static;transform:none;opacity:1;pointer-events:auto;box-shadow:inset 0 0 0 1.5px #14161A;background:transparent;color:#14161A;padding:11px 18px;font-size:15px}html.ingebed .ingebed-terug.ingebed-kop:hover{background:#14161A;color:#F4F1EA}html.ingebed body{padding-bottom:96px}html.ingebed .artikel-retour{display:none!important}html.ingebed .vervolg-plan,html.ingebed .plan-overgang-noot,html.ingebed a[data-plan],html.ingebed .kloof-wegen-slot,html.ingebed .kloof2-cta{display:none!important}@media (prefers-reduced-motion:reduce){html.ingebed .ingebed-terug{transition:none}}html.ingebed-les,html.ingebed-les body{background:#14161A}html.ingebed-les #achtergrond,html.ingebed.laag-open #achtergrond{visibility:hidden}html.ingebed .leerlaag{width:100vw}html.ingebed .leerlaag::backdrop{background:#14161A}</style>
+<script src="js/vraag.js?v=r74-cf74b82b1c94"></script>
+<script src="js/app.js?v=34-2"></script>
+</body>
+</html>
