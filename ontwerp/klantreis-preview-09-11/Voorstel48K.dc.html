@@ -3187,6 +3187,58 @@ body:has(#qa-fis-ok) #q-next{display:none}
 /* telefoon: na bewaren blijft 'Bewaard' zichtbaar in de kop */
 @media (max-width:640px){.pv73bw .pv73st:only-child{display:inline;font-size:13px}.pv73bw:has(.pv73st:only-child){margin-right:4px}}
 
+/* Telefoon: lees de doelnaam vóór de termijn en houd elke vergelijking leesbaar. */
+@media (max-width:480px) {
+  .kr .b26trow { grid-template-columns:minmax(0,1fr); gap:8px; }
+  .kr .b26trow .b26gn { min-width:0; overflow-wrap:anywhere; }
+  .kr .b26trow .b26stp { justify-self:start; }
+  .kr .b26trow .b26terr { grid-column:1; }
+
+  .nk>.top .krnew.pv74kop { flex:1 0 100%; justify-content:flex-start; gap:8px 12px; }
+  .nk>.top .krnew.pv74kop .pv74afs,
+  .nk>.top .krnew.pv74kop .pv73bw { margin-right:0; }
+  .nk.kr .inp:not([readonly]) { font-size:max(16px, 1em); }
+
+  .kr .astra.z41 .goalrow {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    overflow:visible;
+  }
+  .kr .astra.z41 .gr-item { width:100%; max-width:none; }
+  .kr .astra.z41 .gr-name,
+  .kr .astra.z41 .gr-val { white-space:normal; overflow-wrap:anywhere; }
+
+  .kr .astra #detail .pv5cmp { padding:0 4px 0 10px; }
+  .kr .astra #detail .pv5swr {
+    display:grid;
+    grid-template-columns:auto auto minmax(0,1fr);
+    gap:3px 6px;
+    padding:8px 0;
+  }
+  .kr .astra #detail .pv5swr > .pv5sw { grid-row:1 / 3; }
+  .kr .astra #detail .pv5swr > .pv4key { grid-row:2; grid-column:2; }
+  .kr .astra #detail .pv5swr > span {
+    grid-row:1;
+    grid-column:2 / -1;
+    white-space:normal;
+    overflow-wrap:anywhere;
+  }
+  .kr .astra #detail .pv5swr .pv7bedr {
+    grid-row:2;
+    grid-column:3;
+    justify-self:start;
+    margin-left:0;
+    padding-left:0;
+    white-space:normal;
+  }
+  .kr .astra #detail .pv5tipb { width:44px; height:44px; }
+  .kr .astra #detail .pv5tip { width:min(260px,100%); }
+}
+
+@media (max-width:400px) {
+  .kr .astra.z41 .goalrow { grid-template-columns:minmax(0,1fr); }
+}
+
 /* Reserveer plaats voor de zichtbare scenariokolom, inclusief haar verschuiving
    onder het uitlegvenster. De vervolgacties staan daardoor onder de hele rij. */
 :is(.krsim,.krplan) .astra #detail.pv75-scenario-ruimte {
