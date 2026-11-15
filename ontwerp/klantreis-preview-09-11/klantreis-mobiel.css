@@ -1,0 +1,73 @@
+/* Norte klantenreis · smartphone en tablet staand (tot en met 860 px) · 15-11-2026
+   Alleen presentatie. Geen berekening, tekst, toestand of functie verandert.
+   Boven 860 px (tablet liggend, desktop) is dit bestand zonder effect.
+   ":root" verhoogt de specificiteit zodat deze regels na de componentstijlen gelden. */
+
+@media (max-width:860px) {
+
+  /* 1 · Geen lege of vroege grafiek. Bij Doel, Wanneer, Bedrag (simulatie en plan), Daling en
+        'Uw doelen samen' staat de betekenis al in de tekst en de velden erboven.
+        De grafiek blijft bij Simulatie, Schommeling en Overzicht. De stap volgt uit de actieve tab. */
+  :root .nk > main:has(#rt-wensen.cur) .q9ws.b26ws > .b26col,
+  :root .nk > main:has(#rt-termijnen.cur) .q9ws.b26ws > .b26col,
+  :root .nk > main:has(#rt-inleg.cur) .q9ws.b26ws > .b26col,
+  :root .nk > main:has(#rt-daling.cur) .q9ws.b26ws > .b26col,
+  :root .nk.krplan > main:has(#rt-vertrekpunt.cur) .q9ws.b26ws > .b26col { display: none; }
+
+  /* 2 · Invoer → betekenis → vervolg: bij Simulatie en Schommeling plaatst de app zelf de voet
+        ná de grafiek (pl.endNa3 / pl.endNaP); hier alleen de afstand. */
+  :root .nk.krsim > main:has(#rt-vertrekpunt.cur) .q9ws.b26ws > .b26col,
+  :root .nk > main:has(#rt-profiel.cur) .q9ws.b26ws > .b26col { border-top: 0; padding-top: 0; }
+
+  /* 2b · Eén bedraglabel in de grafiek: het kleine duplicaat onder het uitlegbalkje botst op smal scherm. */
+  :root .nk .b26plot:has(.b26maatl) .pv5doell { visibility: hidden; }
+
+  /* 3 · Overzicht op tablet staand: grafiek en resultaat onder elkaar in plaats van
+        een smalle, hoge grafiek naast het resultaat. */
+  :root .nk .astra #workspace.workspace,
+  :root .nk .astra #workspace.workspace.open { grid-template-columns: minmax(0, 1fr) !important; gap: 16px; }
+
+  /* 4 · Uitleg en wettelijke melding (i) verschijnen in de stroom onder de titel,
+        niet als zwevend venster over het invoerveld of het resultaat. */
+  :root .nk > main .th { flex-wrap: wrap; row-gap: 8px; }
+  :root .nk > main .th .thr,
+  :root .nk > main .th .sigw { display: contents; }
+  :root .nk > main .th .tl { flex: 1 1 0; min-width: 0; }
+  :root .nk > main .th #sig-b { margin-left: auto; flex: none; }
+  :root .nk > main .th .sigp {
+    position: static; order: 9; flex: 1 0 100%; width: auto; max-width: none;
+    max-height: none; box-shadow: none; margin: 0;
+  }
+}
+
+@media (max-width:600px) {
+  /* 5 · Telefoon: compacter verloop op het overzicht, zodat het resultaat sneller in beeld komt. */
+  :root .nk .astra .plot { height: clamp(200px, calc(100svh - 560px), 280px); }
+}
+
+@media (max-width:420px) {
+  /* 6 · Smalle telefoon: stappen op één rij, horizontaal schuifbaar in plaats van over twee regels. */
+  :root .nk .q9route ol { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  :root .nk .q9route ol::-webkit-scrollbar { display: none; }
+  :root .nk .q9route li { flex: none; }
+  :root .nk .q9route .q9rt { padding-left: 8px; padding-right: 8px; }
+
+  /* 7 · Bedragrij: doelnaam boven het bedragveld, zodat de naam niet wordt afgesneden. */
+  :root .nk .b26irow { grid-template-columns: minmax(0, 1fr); row-gap: 6px; }
+  :root .nk .b26irow > .b26in,
+  :root .nk .b26irow > .b26ein { justify-self: end; grid-column: 1 / -1; }
+  :root .nk .b26irow > .b26gn { min-width: 0; overflow-wrap: anywhere; }
+}
+
+@media (max-width:360px) {
+  /* 8 · Heel smal (320): stappen passen op één rij; knop 'verder' krijgt een eigen volle rij
+        onder de terugkoppeling, zodat de tekst niet over drie regels breekt. */
+  :root .nk .q9route .q9rt { padding-left: 6px; padding-right: 6px; font-size: 13.5px; }
+  :root .nk .q9end { flex-wrap: wrap; row-gap: 10px; }
+  :root .nk .q9end > .q9nx { flex: 1 0 100%; display: flex; }
+  :root .nk .q9end > .q9nx > .cta { flex: 1; justify-content: center; }
+  :root .nk .q9btns { flex-wrap: wrap; row-gap: 8px; }
+  :root .nk .q9btns > .cta { flex: 1 0 100%; justify-content: center; }
+  :root .nk .q9doors:not(.c) { grid-template-columns: minmax(0, 1fr); }
+  :root .nk .q9doors .q9door { min-width: 0; max-width: 100%; }
+}

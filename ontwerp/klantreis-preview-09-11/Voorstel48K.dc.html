@@ -4203,7 +4203,7 @@ body:has(#qa-fis-ok) #q-next{display:none}
         </div></div>
       </sc-if>
 
-      <sc-if value="{{pl.is03}}" hint-placeholder-val="{{true}}"><div class="q9end"><button class="lnk" onClick="{{pl.back3}}"><span aria-hidden="true">←</span> {{pl.backL3}}</button><span class="q9nx"><sc-if value="{{pl.hasErr3}}" hint-placeholder-val="{{false}}"><span class="ferr" role="alert">{{pl.err3}}</span></sc-if><sc-if value="{{pl.err3Act}}" hint-placeholder-val="{{false}}"><button class="lnk" onClick="{{pl.err3Go}}">Aanpassen</button></sc-if><sc-if value="{{pl.hasRetour}}" hint-placeholder-val="{{false}}"><button id="rt-terug" class="b2" onClick="{{pl.retourGo}}"><span aria-hidden="true">←</span> {{pl.retourL}}</button></sc-if><button id="q-next" class="cta" onClick="{{pl.next3}}">{{pl.nextL3}} <span aria-hidden="true">→</span></button></span></div></sc-if>
+      <sc-if value="{{pl.endHier3}}" hint-placeholder-val="{{true}}"><div class="q9end"><button class="lnk" onClick="{{pl.back3}}"><span aria-hidden="true">←</span> {{pl.backL3}}</button><span class="q9nx"><sc-if value="{{pl.hasErr3}}" hint-placeholder-val="{{false}}"><span class="ferr" role="alert">{{pl.err3}}</span></sc-if><sc-if value="{{pl.err3Act}}" hint-placeholder-val="{{false}}"><button class="lnk" onClick="{{pl.err3Go}}">Aanpassen</button></sc-if><sc-if value="{{pl.hasRetour}}" hint-placeholder-val="{{false}}"><button id="rt-terug" class="b2" onClick="{{pl.retourGo}}"><span aria-hidden="true">←</span> {{pl.retourL}}</button></sc-if><button id="q-next" class="cta" onClick="{{pl.next3}}">{{pl.nextL3}} <span aria-hidden="true">→</span></button></span></div></sc-if>
 
       <sc-if value="{{pl.isP}}" hint-placeholder-val="{{false}}">
         <h2 id="q-h" class="q9q" tabindex="-1">{{kr.t.schom}}</h2>
@@ -4214,7 +4214,7 @@ body:has(#qa-fis-ok) #q-next{display:none}
         <sc-if value="{{pl.prof4.beeldN}}" hint-placeholder-val="{{false}}"><p class="b26sub b26beeldn" role="status">Uw keuzes uit het plan in beeld zijn overgenomen. Omdat een termijn of inleg wijzigde, bevestigt u de aanpak opnieuw.</p></sc-if>
         <sc-if value="{{pl.draag.nietDraag}}" hint-placeholder-val="{{false}}"><p class="notice warn b26bud" role="status">Volgens uw beoordeling is dit verlies niet draagbaar voor de klant.</p></sc-if>
         <sc-if value="{{pl.bud.over}}" hint-placeholder-val="{{false}}"><div class="notice warn b26bud" role="alert"><span><b>{{pl.bud.kop}}</b> {{pl.bud.sub}}</span><button id="bud-herzien" class="lnk" onClick="{{pl.bud.herzien}}">Doelbedrag of inleg herzien</button></div></sc-if>
-        <div class="q9end"><button class="lnk" onClick="{{pl.toVp}}"><span aria-hidden="true">←</span> {{pl.pvTerugVp}}</button><span class="q9nx"><sc-if value="{{pl.prof4.canOk}}" hint-placeholder-val="{{true}}"><sc-if value="{{pl.prof4.okAan}}" hint-placeholder-val="{{true}}"><button id="pf-ok" class="cta" onClick="{{pl.prof4.ok}}">{{pl.prof4.okL}} <span aria-hidden="true">→</span></button></sc-if><sc-if value="{{pl.prof4.okDis}}" hint-placeholder-val="{{false}}"><button id="pf-ok" class="cta" disabled aria-disabled="true">{{pl.prof4.okL}} <span aria-hidden="true">→</span></button></sc-if></sc-if></span></div>
+        <sc-if value="{{pl.endHierP}}" hint-placeholder-val="{{true}}"><div class="q9end"><button class="lnk" onClick="{{pl.toVp}}"><span aria-hidden="true">←</span> {{pl.pvTerugVp}}</button><span class="q9nx"><sc-if value="{{pl.prof4.canOk}}" hint-placeholder-val="{{true}}"><sc-if value="{{pl.prof4.okAan}}" hint-placeholder-val="{{true}}"><button id="pf-ok" class="cta" onClick="{{pl.prof4.ok}}">{{pl.prof4.okL}} <span aria-hidden="true">→</span></button></sc-if><sc-if value="{{pl.prof4.okDis}}" hint-placeholder-val="{{false}}"><button id="pf-ok" class="cta" disabled aria-disabled="true">{{pl.prof4.okL}} <span aria-hidden="true">→</span></button></sc-if></sc-if></span></div></sc-if>
         <sc-if value="{{pl.prof4.motivToon}}" hint-placeholder-val="{{false}}"><div class="b26motiv reveal"><label for="pf-motiv">Motivatie bij deze keuze <span class="q9opt">(optioneel)</span></label><textarea id="pf-motiv" class="inp" rows="3" placeholder="Leg uit waarom dit profiel te verantwoorden is" value="{{pl.prof4.motiv}}" onChange="{{pl.prof4.onMotiv}}" onBlur="{{pl.prof4.motivBl}}"></textarea></div></sc-if>
       </sc-if>
 
@@ -4312,6 +4312,9 @@ body:has(#qa-fis-ok) #q-next{display:none}
         <div class="q9end"><button class="lnk" onClick="{{pl.plan4.terugB}}"><span aria-hidden="true">←</span> Bestemmingen</button><span class="q9nx"><sc-if value="{{pl.plan4.canVerder}}" hint-placeholder-val="{{false}}"><button id="fin-verder" class="cta" onClick="{{pl.plan4.goVerder}}">Verder <span aria-hidden="true">→</span></button></sc-if><sc-if value="{{pl.plan4.canOpl}}" hint-placeholder-val="{{false}}"><button id="fin-opl" class="cta" onClick="{{pl.plan4.opl}}">Vind een passende oplossing <span aria-hidden="true">→</span></button></sc-if></span></div>
       </div></sc-if>
     </section>
+    <!-- 15-11 · smal scherm (≤ 860 px): bij Simulatie en Schommeling staat de voet ná de grafiek, zodat lees- en tabvolgorde de zichtbare volgorde volgen. Er staat steeds maar één voet in de pagina. -->
+    <sc-if value="{{pl.endNa3}}" hint-placeholder-val="{{false}}"><div class="q9end"><button class="lnk" onClick="{{pl.back3}}"><span aria-hidden="true">←</span> {{pl.backL3}}</button><span class="q9nx"><sc-if value="{{pl.hasErr3}}" hint-placeholder-val="{{false}}"><span class="ferr" role="alert">{{pl.err3}}</span></sc-if><sc-if value="{{pl.err3Act}}" hint-placeholder-val="{{false}}"><button class="lnk" onClick="{{pl.err3Go}}">Aanpassen</button></sc-if><sc-if value="{{pl.hasRetour}}" hint-placeholder-val="{{false}}"><button id="rt-terug" class="b2" onClick="{{pl.retourGo}}"><span aria-hidden="true">←</span> {{pl.retourL}}</button></sc-if><button id="q-next" class="cta" onClick="{{pl.next3}}">{{pl.nextL3}} <span aria-hidden="true">→</span></button></span></div></sc-if>
+    <sc-if value="{{pl.endNaP}}" hint-placeholder-val="{{false}}"><div class="q9end"><button class="lnk" onClick="{{pl.toVp}}"><span aria-hidden="true">←</span> {{pl.pvTerugVp}}</button><span class="q9nx"><sc-if value="{{pl.prof4.canOk}}" hint-placeholder-val="{{true}}"><sc-if value="{{pl.prof4.okAan}}" hint-placeholder-val="{{true}}"><button id="pf-ok" class="cta" onClick="{{pl.prof4.ok}}">{{pl.prof4.okL}} <span aria-hidden="true">→</span></button></sc-if><sc-if value="{{pl.prof4.okDis}}" hint-placeholder-val="{{false}}"><button id="pf-ok" class="cta" disabled aria-disabled="true">{{pl.prof4.okL}} <span aria-hidden="true">→</span></button></sc-if></sc-if></span></div></sc-if>
     <sc-if value="{{pl.hasReis}}" hint-placeholder-val="{{false}}"><span class="b26reis" style="{{pl.reis.st}}" aria-hidden="true">{{pl.reis.t}}</span></sc-if>
   </div>
   </sc-if>
@@ -6231,7 +6234,9 @@ Plan26.prototype.render = function (view) {
   const err3 = P.tried3 === s3 ? (s3 === 'wensen' ? ((P.goals || []).length ? '' : 'Kies minstens één wens.') : s3 === 'termijnen' ? (act.some((x2) => !x2.h && x2.hRaw) ? 'Pas de ongeldige termijn aan.' : act.some((x2) => !x2.h) ? 'Geef elk doel een termijn.' : '') : (chk.ok ? '' : chk.msg)) : '';
   const nextL3 = PV9.sim(c) ? (s3 === 'wensen' ? 'Wanneer' : s3 === 'termijnen' ? 'Bedrag' : s3 === 'inleg' ? 'Naar de simulatie' : 'Schommeling kiezen') : (typeof K49 !== 'undefined' && K49.on && K49.on(c)) ? (s3 === 'wensen' ? 'Wanneer' : s3 === 'termijnen' ? 'Bedrag' : s3 === 'inleg' ? 'Naar het overzicht' : 'Schommeling kiezen') : (s3 === 'wensen' ? 'Termijnen' : s3 === 'termijnen' ? 'Inleg' : s3 === 'inleg' ? 'Vertrekpunt' : 'Aanpak bepalen');
   const art = (id, origin) => () => c.openArt(id, origin);
-  return { route, inFis, noFis: !inFis, is03: !isStrat && !inFis, is04: isStrat, isW: !isStrat && s3 === 'wensen', isT: !isStrat && s3 === 'termijnen', isI: !isStrat && s3 === 'inleg', isA: !isStrat && s3 === 'vertrekpunt',
+  const smal = (() => { try { return window.matchMedia('(max-width: 860px)').matches; } catch (e) { return false; } })();
+  const endNa3 = smal && !isStrat && !inFis && s3 === 'vertrekpunt' && !!PV9.sim(c), endNaP = smal && isStrat && s4 === 'profiel';
+  return { route, inFis, noFis: !inFis, is03: !isStrat && !inFis, endHier3: !isStrat && !inFis && !endNa3, endNa3, endHierP: !endNaP, endNaP, is04: isStrat, isW: !isStrat && s3 === 'wensen', isT: !isStrat && s3 === 'termijnen', isI: !isStrat && s3 === 'inleg', isA: !isStrat && s3 === 'vertrekpunt',
     isP: isStrat && s4 === 'profiel', isD: isStrat && s4 === 'daling', isPl: isStrat && s4 === 'plan', wsCls: 'q9ws b26ws' + (isStrat && s4 === 'plan' && planFase === 'slot' ? ' fin' : '') + (isStrat && s4 === 'plan' && planFase === 'beeld' ? ' beeld' : ''), finEnd: isStrat && s4 === 'plan' && planFase === 'slot',
     doors, doorCls: gs.length ? 'q9doors c' : 'q9doors', add, wRows, hasGoals: gs.length > 0, artDoelen: art('doelen', 'ad-doelen'),
     tRows, hasT: tRows.length > 0, artHor: art('horizon', 'ad-hor'),
@@ -8551,6 +8556,8 @@ class Component extends DCLogic {
   constructor(p) {
     super(p);
     this.tm = []; this.deb = {};
+    // 15-11 · bij draaien of verbreden over 860 px opnieuw tekenen (zelfde toestand, andere plaats van de voet)
+    try { const mq = window.matchMedia('(max-width: 860px)'); const her = () => { try { this.forceUpdate(); } catch (e) { /* niets */ } }; if (mq.addEventListener) mq.addEventListener('change', her); else if (mq.addListener) mq.addListener(her); } catch (e) { /* niets */ }
     const d = p.dossier === 'demo36b' || p.dossier === 'demo39' || p.dossier === 'demo40' || p.dossier === 'demo41' ? 'demo36' : (p.dossier || 'kris'); const dB = p.dossier === 'demo36b' || p.dossier === 'demo39' || p.dossier === 'demo40' || p.dossier === 'demo41';
     // eigen lege sleutel per ingang (ronde 11): raakt bestaande lokale gegevens nooit
     this.skey = (p.sleutel ? (window.__pvPfx || 'norte-preview-20261109-r1') + ':' + p.sleutel : 'norte-klant-rev5:' + d) + (p.bewaarfout && p.bewaarfout !== 'nooit' ? ':fout' : '');
@@ -10330,7 +10337,7 @@ const PV4 = {
     PV5.merk('gelezen'); c._pv4poort = false; c._pv4b = true; PV5.nu = null;
     document.body.classList.remove('pv4-poort'); try { PV61.sync(); } catch (e) { /* niets */ }
     c.setState({ sigOpen: false }); PV5.rood(false);
-    c.focus('sig-b', 60); setTimeout(() => PV4.climax(), PV4.rm() ? 0 : 450);
+    c.focus(PV5.smal() ? 'q-h' : 'sig-b', 60); setTimeout(() => PV4.climax(), PV4.rm() ? 0 : 450);
   },
   // eerste hoogtepunt: de grafiek bouwt pas op na de uitleg; vooraf is niets zichtbaar (opmerking 26)
   climax: () => {
@@ -10353,6 +10360,9 @@ window.PV4 = PV4;
 
 const PV5 = {
   c: null, nu: null, _w: false, mail: '', toest: false, mt: '',
+  // 15-11 · smal scherm (≤ 860 px): de verplichte uitleg staat in de stroom boven het resultaat; wie er automatisch op uitkomt, landt op die uitleg en niet eronder
+  smal: () => { try { return window.matchMedia('(max-width: 860px)').matches; } catch (e) { return false; } },
+  poortSmal: (c) => { if (!PV5.smal()) return; c.later(() => { const g = document.getElementById('pv5-gelezen'); if (!g || PV5.heeft('gelezen')) return; const blok = g.closest('.pv5blok') || document.getElementById('sig-p'); if (!blok) return; if (!blok.hasAttribute('tabindex')) blok.setAttribute('tabindex', '-1'); blok.focus({ preventScroll: true }); blok.scrollIntoView({ block: 'start', behavior: 'auto' }); }, 260); },
   sid: () => { try { return new URLSearchParams(location.search).get('sessie') || 'x'; } catch (e) { return 'x'; } },
   k: (n) => (window.__pvPfx || 'norte-preview-20261109-r1') + '.pv5.' + PV5.sid() + '.' + n,
   heeft: (n) => { try { return window.sessionStorage.getItem(PV5.k(n)) === '1'; } catch (e) { return true; } },
@@ -10573,7 +10583,7 @@ Plan26.prototype.render = function (view) {
     const beeld = !!(out.plan4 && out.plan4.isBeeld && this.astra);
     if (beeld && !PV5.heeft('gelezen')) {
       if (!c._pv4poort) { c._pv4poort = true; PV5.nu = 'bruto'; document.body.classList.add('pv4-poort'); }
-      if (!c.state.sigOpen) c.later(() => { if (c._pv4poort && !PV5.heeft('gelezen') && !c.state.sigOpen) c.setState({ sigOpen: true, pv: false }); }, 40);
+      if (!c.state.sigOpen) c.later(() => { if (c._pv4poort && !PV5.heeft('gelezen') && !c.state.sigOpen) { c.setState({ sigOpen: true, pv: false }); PV5.poortSmal(c); } }, 40);
     } else if (!beeld && c._pv4poort) { c._pv4poort = false; document.body.classList.remove('pv4-poort'); }
     if (beeld) c.later(() => { try { window.dispatchEvent(new Event('resize')); } catch (e) { /* niets */ } }, 140);
     if (beeld && !c._pv4b) { c._pv4b = true; if (PV5.heeft('gelezen')) PV61.direct(); }
@@ -10772,7 +10782,7 @@ Component.prototype.k49advDraw = function (eerst) {
       el = document.createElement('div'); el.className = 'pv6lz';
       el.innerHTML = '<button type="button" class="pv6em" aria-label="Vraag het Lizze, digitale assistent">' + EM + '</button><div class="pv6r" aria-live="polite"></div>';
       const eind = sec.querySelector('.q9end'); if (eind) sec.insertBefore(el, eind); else sec.appendChild(el);
-    } else { const eind = sec.querySelector(':scope > .q9end'); if (eind && el.nextElementSibling !== eind) sec.insertBefore(el, eind); } // blijft net boven de knoppen
+    } else { const eind = sec.querySelector(':scope > .q9end'); if (eind && el.nextElementSibling !== eind) sec.insertBefore(el, eind); else if (!eind && sec.parentElement && sec.parentElement.querySelector(':scope > .q9end') && el !== sec.lastElementChild) sec.appendChild(el); } // blijft net boven de knoppen (15-11: op smal scherm staat de voet na de grafiek; Lizze blijft dan onderaan de taak)
     const hk = h + '|' + (document.querySelector('#rt-plan.cur') ? 'ov' : '') + '|' + (PV5.nu === 'crisis' ? 'c' : '') + '|' + (document.getElementById('pv6scn') ? 's' : '');
     if (S.pv61 && S.pv61 !== hk) { S.pv61 = ''; if (S.modus === 'antw') S.modus = 'gids'; }
     if (S.sleutel !== hk) { S.sleutel = hk; S.modus = 'gids'; S.toond = ''; S.laatstHtml = ''; stil(); }
