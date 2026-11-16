@@ -13,17 +13,21 @@
     header img { display: block; width: 114px; height: auto; }
     main { max-width: 42rem; margin: clamp(5rem, 19vh, 13rem) auto 3rem; }
     h1 { margin: 0; font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.12; font-weight: 500; letter-spacing: -.045em; }
-    p { margin: 1.25rem 0 2rem; color: #c2bdb2; }
     a { color: inherit; text-underline-offset: .3em; }
     a:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 2rem; }
+    .primary { display: inline-flex; align-items: center; min-height: 3rem; padding: .6rem 1.1rem; border-radius: .5rem; color: #14161a; background: #f6f3ec; font-weight: 600; text-decoration: none; }
+    .primary:focus-visible { outline-color: #f6f3ec; }
   </style>
 </head>
 <body>
   <header><a href="/?intro=overslaan" aria-label="Norte startpagina"><img src="/assets/logo.svg" alt="Norte"></a></header>
   <main>
     <h1>Voor mijn adviespraktijk</h1>
-    <p>Binnenkort beschikbaar.</p>
-    <a href="/?intro=overslaan">Terug naar Norte</a>
+    <div class="actions">
+      <a class="primary" href="https://nortetestkantorendaxdudhj-aanmelden.functions.fnc.nl-ams.scw.cloud/">Inloggen voor testkantoren</a>
+      <a href="/?intro=overslaan">Terug naar Norte</a>
+    </div>
   </main>
 </body>
 </html>
