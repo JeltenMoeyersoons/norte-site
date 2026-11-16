@@ -465,7 +465,7 @@
   /* ronde 60 · bewaren of tonen: download voor uzelf, een leeslink voor uw partner (na een bewuste klik) */
   var BT = null;
   function bewaarTonen(o) {
-    BT = o || {}; var pl = BT.soort === 'plan'; var x = open('Downloaden'); x.p.dataset.modus = 'bt';
+    BT = o || {}; var pl = BT.soort === 'plan'; var x = open('Downloaden of delen'); x.p.dataset.modus = 'bt';
     /* ronde 63: wat u bewaart of toont staat bovenaan; twee duidelijke keuzes; één regel over wie uw cijfers ziet */
     var w = null; try { w = BT.wat ? BT.wat() : null; } catch (e) { w = null; }
     var ic = function (d) { return '<span class="nkl-btic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 16 16">' + d + '</svg></span>'; };
@@ -473,17 +473,49 @@
     var PA = '<circle cx="5.5" cy="6" r="2.3" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="11" cy="6" r="2.3" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M1.5 13c.6-2.2 2.1-3.3 4-3.3s3.4 1.1 4 3.3M8.5 10.2c.7-.4 1.5-.5 2.5-.5 1.9 0 3.4 1.1 4 3.3" fill="none" stroke="currentColor" stroke-width="1.3"/>';
     var rij = function (d, icoon, titel, zin) { return '<button type="button" class="nkl-btr" data-d="' + d + '">' + ic(icoon) + '<span class="nkl-btt"><b>' + titel + '</b><span>' + zin + '</span></span><span class="nkl-btp" aria-hidden="true">→</span></button>'; };
     x.b.innerHTML = '<div class="nkl-bt2">'
-      + (w && w.v ? '<div class="nkl-btwat"><span class="nkl-btwk">' + esc(w.k || (pl ? 'Uw plan' : 'Uw simulatie')) + '</span><b>' + esc(w.v) + '</b>' + (w.t ? '<span class="nkl-btwt">' + esc(w.t) + '</span>' : '') + '</div>' : '')
-      + rij('bt-dl', DL, 'Download als pdf', 'Voor uzelf: ' + (pl ? 'uw plan' : 'uw simulatie') + ' met uw cijfers, om rustig na te lezen.')
-      + '<p class="nkl-btpriv"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="7" width="9" height="6.5" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>Alleen u ziet uw cijfers, tenzij u ze zelf deelt.</p>'
+      + '<p class="nkl-btnaam">' + esc((pl ? 'Uw plan' : 'Uw simulatie')
+        + (w && w.t ? ': ' + w.t : '') + (w && w.v ? ' · ' + w.v : '')
+        + (w && w.v && w.k && /\d{4}/.test(w.k) ? ' in ' + w.k.match(/\d{4}/)[0] : '')) + '</p>'
+      + rij('bt-dl', DL, 'Download als pdf', 'Voor uzelf, om rustig na te lezen.')
+      + (BT.pdfBestand ? rij('bt-partner', PA, 'Deel de pdf', 'Met uw partner of iemand anders.') : '')
+      + '<p class="nkl-fout" data-pdf-status role="status"></p>'
+      + '<p class="nkl-btpriv"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="7" width="9" height="6.5" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>U deelt een kopie van uw ' + (pl ? 'plan' : 'simulatie') + ' als pdf.</p>'
       + '</div>';
     x.f.innerHTML = '<button type="button" class="nkl-l2" data-d="klaar">Sluiten</button>';
+  }
+  async function deelPdf(knop) {
+    var opties = BT, paneel = P;
+    if (!opties || !opties.pdfBestand || knop.disabled) return;
+    var melding = paneel.b.querySelector('[data-pdf-status]');
+    knop.disabled = true;
+    melding.textContent = '';
+    try {
+      var bestand = opties.pdfBestand();
+      if (!bestand) {
+        melding.textContent = 'De pdf is nog niet beschikbaar.';
+        return;
+      }
+      var inhoud = { files: [bestand] };
+      if (!navigator.share || !navigator.canShare || !navigator.canShare(inhoud)) {
+        opties.download();
+        sluit();
+        return;
+      }
+      await navigator.share(inhoud);
+      if (P === paneel && BT === opties) sluit();
+    } catch (fout) {
+      if (fout.name !== 'AbortError') {
+        melding.textContent = 'Delen lukt hier niet. Kies Download als pdf om het bestand zelf te delen.';
+      }
+    } finally {
+      knop.disabled = false;
+    }
   }
   function deelKlik(e) {
     if (!P || (P.p.dataset.modus !== 'deel' && P.p.dataset.modus !== 'meekijk' && P.p.dataset.modus !== 'bt')) return;
     var el = e.target.closest('[data-d]'); if (!el) return; var a = el.getAttribute('data-d');
     if (a === 'bt-dl') { var o = BT; sluit(); if (o && o.download) setTimeout(o.download, 60); return; }
-    if (a === 'bt-partner') { var snap = null; try { snap = BT && BT.snap ? BT.snap() : null; } catch (e2) { snap = null; } deelPlan(snap, BT && BT.soort === 'plan' ? undefined : 'sim'); return; }
+    if (a === 'bt-partner') { deelPdf(el); return; }
     if (a === 'kopie') { kopieer(); return; }
     if (a === 'klaar') { sluit(); return; }
     if (a === 'maak') { var v = ((document.getElementById('nkl-dvoor') || {}).value || '').trim(), tk = Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4); var l = links(); l.push({ tk: tk, voor: v, t: Date.now(), snap: D.snap, uit: false }); zet('delen', l.slice(-12)); D.voor = v; D.nieuw = tk; deelTeken(); return; }

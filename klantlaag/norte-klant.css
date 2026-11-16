@@ -292,3 +292,6 @@ svg .goal-band, svg .goal-marker, svg .main-line, svg .sav-line, svg .pres-line 
 .nkl-pan:not(.open){pointer-events:none}.nkl-pan .nkl-x{width:44px;height:44px}
 
 @media(max-width:640px){#pv-balk{height:auto!important;min-height:34px;padding:8px 16px!important;gap:8px 14px!important;flex-wrap:wrap;line-height:1.4!important}#pv-balk>span[style="flex:1"]{display:none}}
+
+.nkl-btnaam{margin:0 2px 4px;font:400 14px/1.45 Inter,sans-serif;color:var(--nk-steun,#60615F)}
+[data-pdf-status]:empty{display:none}
