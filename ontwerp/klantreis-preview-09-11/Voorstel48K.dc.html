@@ -4059,6 +4059,18 @@ body:has(#qa-fis-ok) #q-next{display:none}
       <sc-if value="{{f3.vf.isPs}}" hint-placeholder-val="{{false}}"><div class="seg" role="radiogroup" aria-label="Methode pensioensparen" style="margin-bottom:8px"><sc-for list="{{f3.vf.mOpts}}" as="o" hint-placeholder-count="2"><button class="{{o.cls}}" role="radio" aria-checked="{{o.sel}}" onClick="{{o.pick}}">{{o.t}}</button></sc-for></div></sc-if>
       <sc-if value="{{f3.vf.hasPlaf}}" hint-placeholder-val="{{false}}"><div class="plaf plaf2"><span class="meta">{{f3.vf.plafLbl2}}<sc-if value="{{f3.vf.isDemo}}" hint-placeholder-val="{{false}}"> <span class="dpill">Demonstratie</span></sc-if><sc-if value="{{f3.vf.isAann}}" hint-placeholder-val="{{false}}"> <span class="dpill">Voorlopig</span> <button class="lnk" onClick="{{f3.vf.aannWeg}}">Weghalen</button></sc-if><sc-if value="{{f3.vf.opAann}}" hint-placeholder-val="{{false}}"> <span class="dpill">Op aanname</span></sc-if></span><sc-if value="{{f3.vf.pvLink}}" hint-placeholder-val="{{true}}"><button id="calc-btn" class="lnk" onClick="{{f3.vf.calc}}">{{f3.vf.plafLink}}</button></sc-if></div></sc-if>
       <sc-if value="{{f3.vf.psNoM}}" hint-placeholder-val="{{false}}"><div class="meta">{{f3.vf.pvPsNoMTxt}}</div></sc-if>
+      <sc-if value="{{f3.vf.jaar}}" hint-placeholder-val="{{false}}"><div class="plaf">
+        <button class="lnk" aria-expanded="{{f3.vf.jaarAria}}" aria-controls="fis-jaarvelden" onClick="{{f3.vf.jaarTog}}">Bereken uw jaarindicatie</button>
+        <div id="fis-jaarvelden" hidden="{{f3.vf.jaarDicht}}">
+          <p class="meta">{{f3.vf.jaarHint}}</p>
+          <label for="fis-jaarinkomen" class="ql">{{f3.vf.jaarLabel}}</label>
+          <div class="dq-in"><span class="eur"><input class="inp num" id="fis-jaarinkomen" inputmode="numeric" value="{{f3.vf.jaarVal}}" onChange="{{f3.vf.jaarIn}}" aria-describedby="fis-jaaruitkomst"></span></div>
+          <p class="ql">{{f3.vf.jaarVraag}}</p>
+          <div class="seg" role="radiogroup" aria-label="{{f3.vf.jaarVraag}}"><sc-for list="{{f3.vf.jaarOpties}}" as="o" hint-placeholder-count="2"><button class="{{o.cls}}" role="radio" aria-checked="{{o.sel}}" onClick="{{o.pick}}">{{o.t}}</button></sc-for></div>
+          <p class="meta" id="fis-jaaruitkomst" role="status" aria-live="polite">{{f3.vf.jaarUitkomst}}</p>
+          <sc-if value="{{f3.vf.jaarOvernemen}}" hint-placeholder-val="{{false}}"><button class="lnk" onClick="{{f3.vf.jaarGebruik}}">{{f3.vf.jaarOvernemen}}</button></sc-if>
+        </div>
+      </div></sc-if>
       <sc-if value="{{f3.vf.pvAlg}}" hint-placeholder-val="{{false}}"><p class="meta pvalg">{{f3.vf.pvAlg}}</p></sc-if><sc-if value="{{f3.vf.pvNoPlaf}}" hint-placeholder-val="{{false}}"><div class="plaf"><button id="calc-btn" class="cta sm" onClick="{{f3.vf.calc}}">{{f3.vf.calcLbl}}</button><span class="meta">{{f3.vf.needTxt}} · met document of via de boekhouder</span></div></sc-if>
       <sc-if value="{{f3.vf.pvCanAann}}" hint-placeholder-val="{{false}}"><sc-if value="{{f3.vf.aannOpen}}" hint-placeholder-val="{{false}}"><div class="aannb"><label for="aann-in" class="ql">Voorlopig plafond per jaar</label><div class="dq-in"><span class="eur"><input id="aann-in" class="inp num" value="{{f3.vf.aannVal}}" onChange="{{f3.vf.onAann}}" inputmode="numeric"><span class="ferr negerr" role="alert">Een bedrag kan niet negatief zijn.</span></span><button class="btn2" onClick="{{f3.vf.aannOk}}">Doorgaan als concept</button></div><span class="meta">Een aanname, geen bewezen plafond. U vervangt het later door de gecontroleerde gegevens.</span></div></sc-if>
       <sc-if value="{{f3.vf.noPlaf}}" hint-placeholder-val="{{false}}"><button class="lnk" style="margin-top:8px" onClick="{{f3.vf.aannStart}}">Voorlopig plafond gebruiken</button></sc-if></sc-if>
@@ -6356,7 +6368,7 @@ class Fis32 {
       return Math.floor(this.vapzGrens2026(soort, inkomen));
     }
     return null; }
-  normForms(forms, fd) { let ch = false; const o = {}; Object.keys(forms || {}).forEach((k) => { const f = forms[k]; const lim = this.limY(k, fd); const p = this.num(f && f.plan); if (lim !== null && p !== null && p > lim) { o[k] = Object.assign({}, f, { plan: String(lim) }); ch = true; } else o[k] = f; }); return ch ? o : forms; }
+  normForms(forms, fd) { let ch = false; const o = {}; Object.keys(forms || {}).forEach((k) => { const f = forms[k]; const lim = k === 'vapz' && K49.on(this.m) ? this.limY(k, { 'vapz.soort': (fd || {})['vapz.soort'] }) : this.limY(k, fd); const p = this.num(f && f.plan); if (lim !== null && p !== null && p > lim) { o[k] = Object.assign({}, f, { plan: String(lim) }); ch = true; } else o[k] = f; }); return ch ? o : forms; }
   get state() { const fx = this.m.f32fx(); const k01 = (this.m.state && this.m.state.k) || {}; return Object.assign({}, fx, { forms: this.normForms(fx.forms || {}, fx.fd || {}), herv: false, beroep: fx.beroep || (k01.zorg === 'ja' && k01.zorgBeroep) || '' }, { goals: this.m.f32goals(), personen: [], samen: false, samenG: null, sub: 'plan', sc: 'main' }); }
   setState(p) { this.m.f32set(p); }
   later(fn, ms) { this.m.later(fn, ms); }
@@ -6438,7 +6450,7 @@ class Fis32 {
     const krediet = this.fv('lts.krediet') === 'ja';
     const F = {
       ps: [['methode', 'Welke fiscale methode?', 'sel', [['', 'Kies…'], ['30', '30 % · tot € 1.050'], ['25', '25 % · tot € 1.350']], 'Twee methodes van één vorm, niet optelbaar.'], ['gestort', 'Al gestort voor pensioensparen in 2026', 'moeilijk', null, 'Staat op het rekeninguittreksel.']],
-      lts: [['inkomen', 'Beroepsinkomen (referentiejaar na te gaan)', 'moeilijk', null, 'Welk jaar telt, gaat de makelaar na.'], ['krediet', 'Is er een woonkrediet?', 'sel', yn], ['akte', 'Jaar van de oorspronkelijke kredietakte', 'jaartal', null, null, 'krediet'], ['herfin', 'Geherfinancierd?', 'sel', yn, null, 'krediet'], ['enige', 'Eigen en enige woning bij het aangaan?', 'sel', yn, null, 'krediet'], ['kredietuitg', 'Fiscaal relevante kredietuitgaven, jaar', 'moeilijk', null, 'Op het jaarattest van de bank.', 'krediet']],
+      lts: [K49.on(this.m) ? ['inkomen26', 'Netto belastbaar beroepsinkomen voor 2026', 'moeilijk', null, 'Gebruik uw netto belastbaar beroepsinkomen voor dit jaar. Als het jaarbedrag nog niet vaststaat, kunt u een schatting geven.'] : ['inkomen', 'Beroepsinkomen (referentiejaar na te gaan)', 'moeilijk', null, 'Welk jaar telt, gaat de makelaar na.'], ['krediet', 'Is er een woonkrediet?', 'sel', yn], ['akte', 'Jaar van de oorspronkelijke kredietakte', 'jaartal', null, null, 'krediet'], ['herfin', 'Geherfinancierd?', 'sel', yn, null, 'krediet'], ['enige', 'Eigen en enige woning bij het aangaan?', 'sel', yn, null, 'krediet'], ['kredietuitg', 'Fiscaal relevante kredietuitgaven, jaar', 'moeilijk', null, 'Op het jaarattest van de bank.', 'krediet']],
       vapz: [['soort', 'Gewoon of sociaal VAPZ?', 'sel', [['', 'Kies…'], ['gewoon', 'Gewoon VAPZ'], ['sociaal', 'Sociaal VAPZ']]], ['ink3', 'Netto belastbaar beroepsinkomen 2023', 'moeilijk', null, 'Drie jaar terug; de boekhouder heeft dit.'], ['gestort', 'Al gestort voor VAPZ in 2026', 'moeilijk']],
       poz: [['i23', 'Netto belastbaar beroepsinkomen 2023', 'moeilijk'], ['i24', 'Netto belastbaar beroepsinkomen 2024', 'moeilijk'], ['i25', 'Netto belastbaar beroepsinkomen 2025', 'moeilijk'], ['wp', 'Raming wettelijk pensioen', 'moeilijk', null, 'Op mypension.be.'], ['bestaand', 'Andere aanvullende pensioenen (ook VAPZ)', 'moeilijk'], ['hoofdmin', 'Bijdragen minstens die van een hoofdberoep?', 'sel', yn, 'Voorwaarde in bijberoep.', 'bij']],
       ipt: [['bezold', 'Normale bruto jaarbezoldiging', 'moeilijk', null, 'Uit de loonfiche of van de boekhouder.'], ['jin', 'Loopbaan in de vennootschap', 'jaar'], ['juit', 'Loopbaan daarbuiten', 'jaar'], ['wp', 'Raming wettelijk pensioen', 'moeilijk', null, 'Op mypension.be.'], ['bestaand', 'Bestaande pensioenrechten en reserves', 'moeilijk']]
@@ -6457,7 +6469,16 @@ class Fis32 {
   maxOf(k) {
     if (k === 'ps') { const m = this.fv('ps.methode'); if (!m || !this.known('ps.methode')) return { st: 'open', why: 'methode kiezen', alg: 1350 }; return { st: 'bron', v: m === '25' ? 1350 : 1050, herk: 'inkomstenjaar 2026 · FOD Financiën · prototype, niet fiscaal gevalideerd', pct: m === '25' ? 0.25 : 0.30 }; }
     if (k === 'vapz') { const i = this.num(this.fv('ink.2023')); const so = this.fv('vapz.soort'); if (!so || !this.known('vapz.soort')) return { st: 'open', why: 'gewoon of sociaal VAPZ kiezen' }; if (!this.known('ink.2023') || i === null) return { st: 'open', why: 'inkomen 2023' }; const soc = this.fv('vapz.soort') === 'sociaal'; const v = Math.floor(this.vapzGrens2026(so, i)); return { st: this.isAann('ink.2023') ? 'aanname' : 'bron', v, herk: (soc ? '9,78 %' : '8,50 %') + ' van het geherwaardeerde inkomen 2023 (× 676,50/630,85) · RSVZ en circulaire 2026/C/93 · bijdragen 2026' + (this.isAann('ink.2023') ? ' · op aanname' : '') + ' · prototype, niet fiscaal gevalideerd' }; }
-    if (k === 'lts') return { st: 'open', route: true, why: 'het belastbaar beroepsinkomen en de fiscale ruimte naast een eventuele woonlening laten nakijken', alg: 2450 };
+    if (k === 'lts') {
+      const inkomen = this.num(this.fv('lts.inkomen26'));
+      if (K49.on(this.m) && this.known('lts.inkomen26') && inkomen !== null && this.fs('lts.krediet') === 'ingevuld' && this.fv('lts.krediet') === 'nee') {
+        // Federale jaargrens 2026, in gehele euro’s. De woonkredietvraag bewaakt de gedeelde korf.
+        const eersteSchijf = Math.min(2040, inkomen);
+        const plafond = Math.min(2450, Math.floor((15 * eersteSchijf + 6 * (inkomen - eersteSchijf)) / 100));
+        return { st: 'aanname', v: plafond, pct: 0.30, herk: 'Jaarindicatie 2026 · samen voor al uw stortingen voor langetermijnsparen · opgegeven beroepsinkomen en geen woonkrediet' };
+      }
+      return { st: 'open', route: true, why: 'het netto belastbaar beroepsinkomen en de fiscale ruimte naast een eventuele woonlening laten nakijken', alg: 2450 };
+    }
     return { st: 'open', route: true, why: 'het inkomen en de opgebouwde pensioenrechten laten nakijken volgens de 80 %-regel' };
   }
   activeGoals() {
@@ -6471,7 +6492,7 @@ class Fis32 {
   dataFields(k) { return this.fields(k).filter((f) => !(k === 'ps' && f[0] === 'methode')); }
   needOf(k) { return this.dataFields(k).filter((f) => this.fs(this.fkey(k, f[0])) !== 'ingevuld'); }
   showVal(f, v) { if (v === '' || v === undefined || v === null) return 'Nog niet ingevuld'; if (f[2] === 'moeilijk') return this.eur(this.num(v)); if (f[2] === 'jaar') return v + ' jaar'; if (f[2] === 'sel') return ((f[3] || []).find((o) => o[0] === v) || ['', v])[1]; return String(v); }
-  get GROUPS() { return { ps: [['Dit jaar', ['gestort']]], lts: [['Inkomen', ['inkomen']], ['Woonkrediet', ['krediet', 'akte', 'herfin', 'enige', 'kredietuitg']]], vapz: [['Soort VAPZ', ['soort']], ['Inkomen', ['ink3']], ['Dit jaar', ['gestort']]], poz: [['Inkomen (gemiddelde van drie jaar)', ['i23', 'i24', 'i25']], ['Pensioen', ['wp', 'bestaand']], ['Voorwaarde', ['hoofdmin']]], ipt: [['Bezoldiging', ['bezold']], ['Loopbaan', ['jin', 'juit']], ['Pensioen', ['wp', 'bestaand']]] }; }
+  get GROUPS() { return { ps: [['Dit jaar', ['gestort']]], lts: [['Inkomen', [K49.on(this.m) ? 'inkomen26' : 'inkomen']], ['Woonkrediet', ['krediet', 'akte', 'herfin', 'enige', 'kredietuitg']]], vapz: [['Soort VAPZ', ['soort']], ['Inkomen', ['ink3']], ['Dit jaar', ['gestort']]], poz: [['Inkomen (gemiddelde van drie jaar)', ['i23', 'i24', 'i25']], ['Pensioen', ['wp', 'bestaand']], ['Voorwaarde', ['hoofdmin']]], ipt: [['Bezoldiging', ['bezold']], ['Loopbaan', ['jin', 'juit']], ['Pensioen', ['wp', 'bestaand']]] }; }
   /* ---------- demonstratie-adapter: vaste fictieve scenariowaarden, geen fiscale regel (contract in Demo25) ---------- */
   get DEMO() { return {
     lts: { grens: () => this.fv('lts.krediet') === 'ja' ? 1200 : 1800, f: 0.30, gBron: 'demonstratiewaarde € 1.800, of € 1.200 bij een woonkrediet (gedeelde ruimte); onder de algemene bovengrens € 2.450', fBron: '30 % belastingvermindering binnen de grens (bronkaart, Wikifin)' },
@@ -6480,7 +6501,7 @@ class Fis32 {
     ipt: { grens: () => 6000, f: 0.20, gBron: 'demonstratiewaarde € 6.000 per jaar', fBron: 'demonstratiewaarde € 0,20 per ingelegde euro — geen 80 %-berekening' } }; }
   demoOf(k) { if (K49.on(this.m)) return null; const D = this.DEMO[k]; if (!D) return null; const need = this.dataFields(k).filter((f) => !this.known(this.fkey(k, f[0]))); if (need.length) return { st: 'wacht', n: need.length }; return { st: 'demo', grens: D.grens(), f: D.f, gBron: D.gBron, fBron: D.fBron, aann: this.dataFields(k).some((f) => this.isAann(this.fkey(k, f[0]))) }; }
   vormInfo(k) { const st = this.state; const m = this.maxOf(k); const pRaw = this.num(st.forms[k].plan); const pLeeg = pRaw === null && !this.negForm(k); const p = pRaw || 0; const lop = k === 'ps' && this.BRON.lopendPs ? this.BRON.lopendPs.maand * 12 : 0;
-    const cap = m.st !== 'open' ? m.v : null; const alg = m.alg || null; const psKeuze = k === 'ps' && cap !== null && m.pct === 0.30 && p > 1050 && p <= 1350; const ben = k === 'ps' && cap !== null && !psKeuze && !pLeeg ? Math.round(Math.min(p, cap) * m.pct) : null;
+    const cap = m.st !== 'open' ? m.v : null; const alg = m.alg || null; const psKeuze = k === 'ps' && cap !== null && m.pct === 0.30 && p > 1050 && p <= 1350; const ben = cap !== null && m.pct && !psKeuze && !pLeeg ? (k === 'lts' ? Math.floor(Math.min(p, cap) * 30 / 100) : Math.round(Math.min(p, cap) * m.pct)) : null;
     const demo = ben === null ? this.demoOf(k) : null; const demoBen = demo && demo.st === 'demo' && !pLeeg ? Math.round(Math.min(p, demo.grens) * demo.f) : null; const aannP = this.num((st.aannPlaf || {})[k]); const voorlBen = ben === null && !(demo && demo.st === 'demo') && aannP !== null && k === 'lts' && !pLeeg ? Math.round(Math.min(p, aannP) * 0.30) : null;
     return { m, p, pLeeg, lop, cap, alg, ben, psKeuze, demo, demoBen, voorlBen, aannP, nieuw: this.FORM[k].payer === 'prive' ? Math.max(0, p - lop) : 0 }; }
   /* fictieve voorbeelddocumenten en boekhouderantwoorden (simulatie, geen klantdata) */
@@ -6493,7 +6514,7 @@ class Fis32 {
     { id: 'scan', naam: 'Onscherpe scan (fictief voorbeeld)', fout: true }]; }
   /* welk document, welk jaar, voor welk gegeven (patroon 7c/7k) */
   /* document per vorm/gegeven/jaar (bug r29: één globale 'gestort'-sleutel gaf bij VAPZ het attest pensioensparen) */
-  docNeed(k, f0) { const T = { 'ps.gestort': ['Betaalbewijs pensioensparen', 'stortingen 2026'], 'vapz.gestort': ['VAPZ-betalingsattest of jaaroverzicht', 'stortingen 2026 · betaalbewijs volstaat zolang het attest er niet is'], 'ink.2023': ['Aanslagbiljet', 'inkomsten 2023'], 'ink.2024': ['Aanslagbiljet', 'inkomsten 2024'], 'ink.2025': ['Aanslagbiljet', 'inkomsten 2025'], 'lts.inkomen': ['Aanslagbiljet', 'jaar na te gaan door de makelaar'], 'ipt.bezold': ['Individuele fiche 281.20', 'inkomsten 2025'], 'poz.wp': ['Pensioenoverzicht mypension.be', 'meest recent'], 'ipt.wp': ['Pensioenoverzicht mypension.be', 'meest recent'], 'poz.bestaand': ['Overzicht aanvullende pensioenen', 'meest recent'], 'ipt.bestaand': ['Overzicht aanvullende pensioenen', 'meest recent'], 'ipt.jin': ['Loopbaanoverzicht mypension.be', 'meest recent'], 'ipt.juit': ['Loopbaanoverzicht mypension.be', 'meest recent'], 'lts.kredietuitg': ['Jaarattest woonkrediet', '2025'], 'lts.akte': ['Kredietakte', 'oorspronkelijke akte'] }; return T[this.fkey(k, f0)] || null; }
+  docNeed(k, f0) { const T = { 'ps.gestort': ['Betaalbewijs pensioensparen', 'stortingen 2026'], 'vapz.gestort': ['VAPZ-betalingsattest of jaaroverzicht', 'stortingen 2026 · betaalbewijs volstaat zolang het attest er niet is'], 'ink.2023': ['Aanslagbiljet', 'inkomsten 2023'], 'ink.2024': ['Aanslagbiljet', 'inkomsten 2024'], 'ink.2025': ['Aanslagbiljet', 'inkomsten 2025'], 'lts.inkomen': ['Aanslagbiljet', 'jaar na te gaan door de makelaar'], 'lts.inkomen26': ['Raming van uw netto belastbaar beroepsinkomen', 'inkomsten 2026'], 'ipt.bezold': ['Individuele fiche 281.20', 'inkomsten 2025'], 'poz.wp': ['Pensioenoverzicht mypension.be', 'meest recent'], 'ipt.wp': ['Pensioenoverzicht mypension.be', 'meest recent'], 'poz.bestaand': ['Overzicht aanvullende pensioenen', 'meest recent'], 'ipt.bestaand': ['Overzicht aanvullende pensioenen', 'meest recent'], 'ipt.jin': ['Loopbaanoverzicht mypension.be', 'meest recent'], 'ipt.juit': ['Loopbaanoverzicht mypension.be', 'meest recent'], 'lts.kredietuitg': ['Jaarattest woonkrediet', '2025'], 'lts.akte': ['Kredietakte', 'oorspronkelijke akte'] }; return T[this.fkey(k, f0)] || null; }
   get DOCREF() { return { inkomen: '40000', ink3: '45000', i23: '45000', i24: '41000', i25: '43000', bezold: '60000', wp: '18000', bestaand: '12000', jin: '6', juit: '14', gestort: '300', kredietuitg: '1800', akte: '2015' }; }
   get BEROEP() { return { arts: 'Arts', tand: 'Tandarts', apo: 'Apotheker', kine: 'Kinesitherapeut', ander: 'Ander zorgberoep' }; }
   get BOEKV() { return { bezold: '58000', jin: '6', juit: '12', wp: '17500', bestaand: '9000', i23: '44000', i24: '40500', i25: '42500', ink3: '44000', inkomen: '39500', gestort: '0', kredietuitg: '1750', akte: '2016' }; }
@@ -6694,7 +6715,7 @@ class Fis32 {
     const backData = (sel) => { self.set({ fView: 'data', helpOpen: false }); scTo(self._dY); self.focusSel(sel || '#doc-card', 90); };
     /* ---- overzicht ---- */
     const benOf = (k) => { const I = info(k); if (!I.p) return { t: 'kies een bedrag', cls: 'r-ben q', demo: false }; const opA = I.m.st === 'aanname' || !!(I.demo && I.demo.aann);
-      if (I.ben !== null) return { t: this.eur(I.ben), cls: 'r-ben', demo: false };
+      if (I.ben !== null) return { t: this.eur(I.ben), cls: 'r-ben', demo: false, voorl: opA };
       if (I.demo && I.demo.st === 'demo') return { t: this.eur(I.demoBen), cls: 'r-ben demo', demo: true, opA };
       if (I.voorlBen !== null) return { t: this.eur(I.voorlBen), cls: 'r-ben demo', demo: false, voorl: true };
       if (I.aannP !== null) return { t: 'nog te bepalen', cls: 'r-ben q', demo: false, voorl: true };
@@ -6814,20 +6835,44 @@ class Fis32 {
       else if (lim === null && I.alg && I.p > I.alg) { over = this.eur(I.p - I.alg) + ' boven € ' + '2.450 valt zeker buiten het voordeel.'; fixes.push({ l: 'Naar € 2.450', go: () => setForm(k, { plan: String(I.alg) }) }); }
       if (!over && !venn && fbMx > fbR + 1e-9) { over = 'Samen met de andere fiscale vormen ≈ ' + this.eur(fbM) + ' per maand: meer dan de maandruimte van de klant (' + this.eur(fbR) + ').'; }
       const note = k === 'ps' && this.fv('ps.methode') === '25' && I.p && I.p <= 1260 ? 'Tot € 1.260 levert de methode van 30 % evenveel of meer op.' : '';
+      const jaar = K49.on(self.m) && K49.sim(self.m) && (k === 'lts' || k === 'vapz');
+      const lts = k === 'lts';
+      const inkomensveld = lts ? 'lts.inkomen26' : 'ink.2023';
+      const keuzeveld = lts ? 'lts.krediet' : 'vapz.soort';
+      const jaarOpen = !!st.open['jaar-' + k];
+      const jaarOpties = !jaar ? [] : (lts ? [['ja', 'Ja'], ['nee', 'Nee']] : [['gewoon', 'Gewoon VAPZ'], ['sociaal', 'Sociaal VAPZ']]).map(([val, t]) => {
+        const gekozen = this.fs(keuzeveld) === 'ingevuld' && this.fv(keuzeveld) === val;
+        return { t, cls: 'seg-b' + (gekozen ? ' on' : ''), sel: gekozen ? 'true' : 'false', pick: () => setFd(keuzeveld, { st: 'ingevuld', val }) };
+      });
+      const jaarUitkomst = !jaar ? '' : I.cap !== null
+        ? 'Tot ' + this.eur(I.cap) + ' in totaal voor uw stortingen in 2026.'
+        : lts && this.fv(keuzeveld) === 'ja'
+          ? 'Een woonlening kan dezelfde fiscale ruimte gebruiken. Laat uw woonlening mee nakijken om uw persoonlijke grens te bepalen.'
+          : 'Vul het inkomen in en maak een keuze.';
       const gest = k === 'ps' && this.fs('ps.gestort') === 'ingevuld' ? this.num(this.fv('ps.gestort')) : null;
       const ditJaar = gest !== null && lim !== null ? 'Dit jaar al gestort ' + this.eur(gest) + ' · binnen het plafond kan in 2026 nog ' + this.eur(Math.max(0, lim - gest)) + '.' : '';
       const bron = venn ? 'Betaald door de vennootschap, niet uit het budget van de klant.' : I.lop ? (I.p >= I.lop ? 'Waarvan ' + this.eur(I.lop) + ' al loopt (uit 02).' : 'Lager dan het lopende contract (' + this.eur(I.lop) + ', uit 02).') : '';
       const usedF = this.dataFields(k).map((f) => { const d = st.fd[this.fkey(k, f[0])] || {}; const s = d.st || 'leeg'; return f[1] + ': ' + (s === 'leeg' || s === 'later' || s === 'boekhouder' || d.val === '' || d.val === undefined ? (s === 'boekhouder' ? 'gevraagd aan de boekhouder' : s === 'later' ? 'later' : 'ontbreekt') : this.showVal(f, d.val) + (s === 'aanname' ? ' (aanname)' : s === 'document' ? ' (nog te bevestigen)' : d.bron === '02' ? ' (uit 02)' : '')); });
-      const herk = [{ t: POT[k] || '' }].concat(isAann ? [{ t: 'Voorlopig plafond: door u aangenomen, geen bewezen persoonlijk plafond. Vervang het zodra de makelaar de gegevens heeft gecontroleerd.' }] : []).concat(k === 'ps' ? [{ t: 'Bron: FOD Financiën 2026 en Wikifin; één methode per jaar, niet optelbaar. Bij weinig of geen belasting is het werkelijke voordeel kleiner.' }] : k === 'lts' ? [{ t: 'Bron: Wikifin 2026. € 2.450 is de algemene bovengrens, geen persoonlijke grens.' }] : k === 'vapz' ? [{ t: 'Bron: RSVZ en circulaire 2026/C/93. Het jaarplafond geldt voor al uw VAPZ-stortingen van 2026 samen. De simulatie rondt naar beneden af op hele euro’s.' + (st.zorg === 'ja' ? ' Een RIZIV-tussenkomst telt niet mee voor het eigen VAPZ-plafond.' : '') }] : [{ t: 'Bron: FSMA, de 80 %-regel. Geen vaste jaarlijkse eurogrens.' }])
+      const herk = [{ t: POT[k] || '' }].concat(isAann ? [{ t: 'Voorlopig plafond: door u aangenomen, geen bewezen persoonlijk plafond. Vervang het zodra de makelaar de gegevens heeft gecontroleerd.' }] : []).concat(k === 'ps' ? [{ t: 'Bron: FOD Financiën 2026 en Wikifin; één methode per jaar, niet optelbaar. Bij weinig of geen belasting is het werkelijke voordeel kleiner.' }] : k === 'lts' ? [{ t: 'Bronnen voor 2026: Wikifin en de technische fiche van Curalia. De jaarindicatie telt 15 % op de eerste € 2.040 en 6 % op de rest van het netto belastbaar beroepsinkomen, tot € 2.450. Bepaalde leningen delen die fiscale ruimte. De berekening rondt naar beneden af op hele euro’s.' }] : k === 'vapz' ? [{ t: 'Bron: RSVZ en circulaire 2026/C/93. Het jaarplafond geldt voor al uw VAPZ-stortingen van 2026 samen. De simulatie rondt naar beneden af op hele euro’s.' + (st.zorg === 'ja' ? ' Een RIZIV-tussenkomst telt niet mee voor het eigen VAPZ-plafond.' : '') }] : [{ t: 'Bron: FSMA, de 80 %-regel. Geen vaste jaarlijkse eurogrens.' }])
         .concat(isDemo ? [{ t: 'Demonstratie: ' + (D.gBron || 'plafond volgens FSMA-parameters') + '; voordeel: ' + D.fBron + '. Vaste fictieve scenariowaarden, geen persoonlijke berekening.' }] : [])
         .concat(I.lop ? [{ t: 'Lopend contract uit 02: ' + this.eur(I.lop) + ' per jaar, al in de maandlasten.' }] : [])
         .concat(usedF.length ? [{ t: 'Gebruikte gegevens — ' + usedF.join(' · ') }] : []);
-      return { k, naam: FM[k].naam, backLbl: 'Terug naar ' + FM[k].naam, backTo: '← ' + FM[k].naam, backData: '← Gegevens voor ' + FM[k].naam, ctx: venn ? 'Via de vennootschap' : '',
+      return { k, naam: FM[k].naam,
+        jaar, jaarDicht: !jaarOpen, jaarAria: jaarOpen ? 'true' : 'false', jaarTog: tog('jaar-' + k),
+        jaarLabel: lts ? 'Netto belastbaar beroepsinkomen in 2026' : 'Netto belastbaar beroepsinkomen in 2023',
+        jaarHint: lts ? 'Schat uw jaarinkomen als het bedrag voor 2026 nog niet vaststaat.' : 'Dit inkomen staat op uw aanslagbiljet voor 2023.',
+        jaarVraag: lts ? 'Hebt u een woonlening?' : 'Welk VAPZ wilt u bekijken?',
+        jaarVal: jaar ? self.m.geldFmt(this.fv(inkomensveld) || '') : '',
+        jaarIn: (e) => { const val = self.m.geldLive(e, 7); setFd(inkomensveld, { st: val ? (lts ? 'aanname' : 'ingevuld') : 'leeg', val }); },
+        jaarOpties, jaarUitkomst,
+        jaarOvernemen: jaar && I.cap > 0 && I.cap !== I.p ? 'Gebruik ' + this.eur(I.cap) + ' als inleg' : '',
+        jaarGebruik: () => { if (I.cap > 0) zetPlan(k, String(I.cap)); },
+        backLbl: 'Terug naar ' + FM[k].naam, backTo: '← ' + FM[k].naam, backData: '← Gegevens voor ' + FM[k].naam, ctx: venn ? 'Via de vennootschap' : '',
         isAann, aannVal: (st.aannPlaf || {})[k] || '', aannOpen: st.aannEdit === k, aannStart: () => { self.set({ aannEdit: k }); self.focusSel('#aann-in', 80); }, onAann: (e) => self.set({ aannPlaf: Object.assign({}, self.state.aannPlaf || {}, { [k]: self.m.geldLive(e, 6) }) }), aannOk: () => { if (!self.num((self.state.aannPlaf || {})[k])) { self.focusSel('#aann-in', 40); return; } self.set({ aannEdit: null }); self.focusSel('#vorm-amt', 80); }, aannWeg: () => { const a = Object.assign({}, self.state.aannPlaf || {}); delete a[k]; self.set({ aannPlaf: a, aannEdit: null }); }, canAann: lim === null || isAann, hasPlaf: lim !== null, plaf: lim !== null ? this.eur(lim) : '', plafLbl: k === 'ps' ? 'Plafond met deze methode' : isAann || opAann ? 'Voorlopig plafond' : 'Persoonlijk plafond', opAann, isDemo, noPlaf: lim === null && k !== 'ps', psNoM: lim === null && k === 'ps',
         needTxt: need.length ? need.length + ' gegeven' + (need.length > 1 ? 's' : '') + ' nodig' + (pend ? ' · ' + pend + ' wacht' : '') : 'alle gegevens ingevuld', calcLbl: need.length ? 'Persoonlijk bepalen' : 'Gegevens bekijken', calc: () => openData(k), plafLink: need.length ? 'Gegevens aanvullen' : 'Gegevens bekijken',
         val: self.m.geldFmt(st.forms[k].plan), on: (e) => zetPlan(k, self.m.geldLive(e, 6)), onR: (e) => zetPlan(k, String(Math.round((parseInt(e.target.value, 10) || 0) / 10) * 10)), klemN: st.clampN && st.clampN.k === k ? st.clampN.t : '', hasKlemN: !!(st.clampN && st.clampN.k === k), rMax: String(S), rVal: String(I.p),
         bar: '--f:' + pct(Math.min(I.p, S), S) + ';--m:' + pct(lim !== null ? Math.min(lim, I.p) : Math.min(I.p, S), S), mark: 'left:' + pct(lim || 0, S) + ';--al:' + ((lim || 0) / S < 0.15 ? '0' : (lim || 0) / S > 0.85 ? '-100%' : '-50%'), hasMark: lim !== null && lim <= S, markLbl: (isDemo ? 'demo-plafond ' : 'plafond ') + (lim !== null && k !== 'ps' ? this.eur(lim) : ''), /* V6 (36): bij pensioensparen staat de grens al in de gekozen methode */
-        big: I.pLeeg ? 'Nog te berekenen' : hard && !hard.keuze ? 'Nog te kiezen' : benV !== null ? this.eur(benV) : 'Nog te bepalen', bigCls: 'vbig' + (benV === null || (hard && !hard.keuze) ? ' q' : isDemo || isAann || opAann ? ' demo' : ''), benVoorl: (isAann || opAann) && benV !== null, qual: I.pLeeg ? 'volgt zodra de inleg per jaar is ingevuld' : hard && !hard.keuze ? 'volgt zodra het bedrag binnen de grens valt' : I.psKeuze ? 'nog niet te bepalen: kies eerst een geldige combinatie' : benV === null ? 'zodra het plafond bekend is' : 'hoogstens · onder voorwaarden',
+        big: I.pLeeg ? 'Nog te berekenen' : hard && !hard.keuze ? 'Nog te kiezen' : benV !== null ? this.eur(benV) : 'Nog te bepalen', bigCls: 'vbig' + (benV === null || (hard && !hard.keuze) ? ' q' : isDemo || isAann || opAann ? ' demo' : ''), benVoorl: (isAann || opAann) && benV !== null, qual: I.pLeeg ? 'volgt zodra de inleg per jaar is ingevuld' : hard && !hard.keuze ? 'volgt zodra het bedrag binnen de grens valt' : I.psKeuze ? 'nog niet te bepalen: kies eerst een geldige combinatie' : benV === null ? (k === 'vapz' && I.cap !== null ? 'hangt af van uw belastingtarief' : 'zodra het plafond bekend is') : 'hoogstens · onder voorwaarden',
         plafLbl2: k === 'ps' ? 'Methode bepaalt het plafond' : isAann || opAann ? 'Voorlopig plafond' : 'Persoonlijk plafond', bigLbl: I.pLeeg ? 'het voordeel volgt zodra de inleg per jaar is ingevuld' : hard && !hard.keuze ? 'voordeel volgt zodra het bedrag binnen de grens valt' : I.psKeuze ? 'voordeel nog niet te bepalen: kies eerst een geldige combinatie' : benV === null ? (venn ? 'minder vennootschapsbelasting per jaar, zodra het plafond bekend is' : 'minder belasting per jaar, zodra het plafond bekend is') : venn ? 'hoogstens minder vennootschapsbelasting per jaar' : 'hoogstens minder personenbelasting per jaar', cond: benV === null || (hard && !hard.keuze) || I.psKeuze ? '' : venn ? 'Als de vennootschap winst maakt en de 80 %-regel gerespecteerd blijft.' : 'Als de klant genoeg belastbare inkomsten heeft en dezelfde ruimte niet elders al benut. ' + (k === 'ps' ? 'Bij uitbetaling volgt een eindbelasting.' : k === 'lts' ? 'Het persoonlijke maximum hangt af van het beroepsinkomen en een woonkrediet.' : 'Bij uitbetaling volgt een belasting.'), condOpen: !!st.open.cond, condAria: st.open.cond ? 'true' : 'false', togCond: tog('cond'),
         over, hasOver: !!over, fixes: [], overCls: 'notice ' + (hard ? 'err' + (tried('vorm-' + k) ? ' on' : '') : 'warn'), amtInv: hard || this.negForm(k) || (!venn && fbMx > fbR + 1e-9) ? 'true' : 'false', note, hasNote: !!note, ditJaar, hasDit: !!ditJaar, bron, hasBron: !!bron, isPs: k === 'ps', check: this.naTeGaan(k),
         mOpts: [['30', '30 % · tot € 1.050'], ['25', '25 % · tot € 1.350']].map(([v, t]) => ({ t, cls: 'seg-b' + (this.fv('ps.methode') === v ? ' on' : ''), sel: this.fv('ps.methode') === v ? 'true' : 'false', pick: () => { setFd('ps.methode', { st: 'ingevuld', val: v }); const lim2 = v === '30' ? 1050 : 1350; const p2 = this.num(((self.m.f32fx().forms || {}).ps || {}).plan); if (p2 !== null && p2 > lim2) { setForm('ps', { plan: String(lim2) }); self.set({ clampN: { k: 'ps', t: 'Aangepast naar ' + this.eur(lim2) + ' per jaar: het hoogste bedrag bij de methode van ' + (v === '30' ? '30 %' : '25 %') + '.' } }); } else if (self.state.clampN && self.state.clampN.k === 'ps') self.set({ clampN: null }); } })),
@@ -10016,6 +10061,11 @@ Component.prototype.renderVals = function () {
       if (PV9.sim(this)) {
         const nm = String(vf.naam || '');
         vf.pvNoPlaf = false; vf.pvCanAann = false; vf.pvLink = false;
+        if (vf.jaar && vf.hasPlaf) {
+          vf.hasPlaf = vf.jaarDicht;
+          vf.opAann = false;
+          vf.plafLbl2 = 'Jaarindicatie voor 2026 · ' + vf.plaf;
+        }
         if (vf.isPs) { vf.pvKop = 'Grens en voordeel'; vf.pvPsNoMTxt = 'Eén van beide per jaar; die keuze bepaalt uw grens.'; (vf.mOpts || []).forEach((o) => { const m = String(o.t || '').match(/(\d+)\s*%\s*·\s*tot\s*(€\s*[\d.]+)/); if (m) o.t = 'Tot ' + m[2] + ' · ' + m[1] + ' %'; }); if (vf.hasPlaf) vf.plafLbl2 = 'Belastingvermindering: 30 % tot € 1.050 of 25 % tot € 1.350; één van beide per jaar.'; }
         else {
           vf.pvKop = 'Grens en voordeel';
@@ -10238,7 +10288,7 @@ PV11.fisRijen = (c, s4G) => {
     const prive = FM.payer === 'prive';
     let b = gv && gv.ben != null ? gv.ben : null;
     if (b === null && prive) { try { const I = c.f32.vormInfo(k); const hk = c.f32.fout4 ? c.f32.fout4(k) : false; if (I && I.p && !hk) b = I.ben !== null && I.ben !== undefined ? I.ben : (I.demo && I.demo.st === 'demo' ? I.demoBen : null); } catch (e) { b = null; } }
-    const ben = !prive ? 'niet berekend: hangt af van uw loon en loopbaan' : b !== null && Number.isFinite(b) ? c.eur(b) + ' per jaar, hoogstens, onder voorwaarden' : x && x.b ? String(x.b) : 'nog te bepalen: gegevens nodig';
+    const ben = !prive ? 'niet berekend: hangt af van uw loon en loopbaan' : b !== null && Number.isFinite(b) ? (k === 'lts' ? 'indicatie: ' : '') + c.eur(b) + ' per jaar, hoogstens, onder voorwaarden' : x && x.b ? String(x.b) : 'nog te bepalen: gegevens nodig';
     return { k, naam: FM.naam || k, jaar: c.eur(c.num(F.fx.forms[k].plan) || 0) + ' per jaar', prive, betaler: prive ? 'uzelf (privé)' : 'uw vennootschap', ben, regel: PV11.REGEL[k] || '' }; });
 };
 PV11.fisPdf = (c, s4G, alleenBestand = false) => {
