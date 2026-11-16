@@ -169,7 +169,18 @@
     if (C.fout && C.fout[n]) { delete C.fout[n]; e.target.classList.remove('fout'); var er = document.getElementById('nkl-e-' + n); if (er) er.remove(); }
     if (n === 'pc') { var ks = kantoren(), oud = C.kant; C.kant = ks.length ? ks[0].i : null; if (oud !== C.kant && C.dag !== 'ander') { C.dag = null; C.uur = null; zetSlot(); } if (ks.length && C.fout) delete C.fout.kant; contactTeken('#nkl-pc'); }
   });
-  function contact() {
+  function contact(context, stukken) {
+    if (context === 'fis') {
+      var fiscaal = open('Laat uw fiscale ruimte nakijken');
+      var onderwerp = encodeURIComponent('Aanvraag fiscale controle via Norte');
+      var bericht = encodeURIComponent('Dag, ik wil mijn fiscale mogelijkheden laten nakijken. Hoe kan ik mijn documenten veilig aan uw kantoor bezorgen?');
+      fiscaal.p.dataset.modus = 'contact-informatie';
+      fiscaal.b.innerHTML = '<p class="nkl-waarom">Vraag Familie Kapitaal om uw fiscale ruimte te berekenen en af te spreken hoe u uw documenten bezorgt.</p>'
+        + (Array.isArray(stukken) && stukken.length ? '<h3>Houd dit bij de hand</h3><ul>' + stukken.map(function (stuk) { return '<li>' + esc(stuk) + '</li>'; }).join('') + '</ul>' : '');
+      fiscaal.f.innerHTML = '<a class="nkl-go" style="display:grid;place-items:center;text-decoration:none" href="mailto:jelten@norte.be?subject=' + onderwerp + '&amp;body=' + bericht + '">Open e-mailconcept</a>'
+        + '<p class="nkl-note">Verstuur het bericht vanuit uw mailprogramma. Houd uw fiscale documenten bij tot u weet hoe u ze veilig kunt bezorgen.</p>';
+      return;
+    }
     var x = open('Contact');
     x.p.dataset.modus = 'contact-informatie';
     x.b.innerHTML = '<p class="nkl-waarom">Online een afspraak maken kan binnenkort. Heeft u een vraag over Norte? Mail ons op <a href="mailto:jelten@norte.be">jelten@norte.be</a>.</p>';
