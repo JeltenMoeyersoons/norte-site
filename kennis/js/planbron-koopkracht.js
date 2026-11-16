@@ -1,4 +1,4 @@
-/* Norte-planbron, educatieve uitsnede voor Norte Kennis (4 november 2026). NIET bewerken.
+/* Norte-planbron, educatieve uitsnede voor Norte Kennis (4 november 2026). Rendementsaanname bijgewerkt in 2026-11.1.
    Bron (read-only): actuele-klantflow/KlantflowComfort047648caeb.dc.html
    sha256 047648caeb259cc21d339079c96b730a12fbdd6ddb8c64bd83970a0cfd441978.
    Letterlijk overgenomen tekenbereiken (Unicode-tekens, Python str-index) van die bron, in deze volgorde:
@@ -9,6 +9,11 @@
    (vrije doelen; zonder dossier, fiscaal sparen of klantstand), met een fictief voorbeelddoel.
    Buiten metRekenkern() blijft BRIDGE leeg, zodat de koopkrachtlijn exact rekent zoals voorheen. */
 window.NortePlanbron = (function () {
+// 2026-11.1 · Geannualiseerde Amerikaanse aandelenramingen, omgerekend naar een eurobasis.
+// Horizon 2026, 10 jaar: 6,39%. Damodaran 1-1-2026: 8,41% verwacht en 3,95% USD-basis.
+// ECB AAA, 10 jaar, 31-12-2025: 2,9480486243%. De twee risicopremies wegen elk 50%.
+const NORTE_AANDELEN_NOMINAAL = 0.029480486243 + ((0.0639 - 0.0395) + (0.0841 - 0.0395)) / 2;
+
 let BRIDGE = null;
 const MARKET = { aandelen: new Array(1200).fill(0), obligaties: new Array(1200).fill(0) }; // A-K2: geen eigen marktpad in de maandmotor; het marktverloop zit in de rekenkernreeks
 const CRISES={dotcom:{v:'Lange daling',n:'Dotcomcrash',j:'2000–2002',a:45,o:0,m:30,t:'Lange, geleidelijke daling van aandelen. Obligaties dalen niet mee.'},krediet:{v:'Diepe daling',n:'Financiële crisis',j:'2007–2009',a:50,o:0,m:17,t:'Diepe daling van aandelen in anderhalf jaar. Obligaties dalen niet mee.'},corona:{v:'Snelle schok',n:'Coronacrisis',j:'2020',a:30,o:0,m:2,t:'Zeer snelle daling van aandelen in enkele weken.'},oekraine:{v:'Aandelen en obligaties samen',n:'Oorlog in Oekraïne en rentestijging',j:'2022',a:20,o:15,m:10,t:'Aandelen én obligaties dalen samen door de snelle rentestijging.'},brexit:{v:'Korte schok',n:'Brexit-referendum',j:'2016',a:8,o:0,m:1,t:'Korte schok op aandelen; voor een wereldwijde spreiding beperkt.'},handel:{v:'Daling over één kwartaal',n:'Handelsoorlog',j:'2018',a:15,o:0,m:3,t:'Daling van aandelen over één kwartaal door handelsspanningen.'}};
@@ -48,7 +53,7 @@ const PlanEngine=(()=>{
     plan.goals.forEach((g,i)=>{
      let p=profile(g,prev),saving=options.savings==='all'||options.savings===g.id||p==='sparen';
      if(prev>=g.horizon)p='sparen',saving=true;
-     const w=MIX[p],r=saving?(savingsOnly(g)?options.savingsRate??plan.savingsRate:plan.savingsRate)/100:w*.0659+(1-w)*.0302;
+     const w=MIX[p],r=saving?(savingsOnly(g)?options.savingsRate??plan.savingsRate:plan.savingsRate)/100:w*NORTE_AANDELEN_NOMINAAL+(1-w)*.0302;
      const swing=saving?0:w*MARKET.aandelen[m-1]+(1-w)*MARKET.obligaties[m-1];
      const optimistic=!saving&&s.market==='optimistisch'?s.extraReturn/100:0;
      balances[i]*=Math.exp((Math.log(1+r)+Math.log(1+optimistic)-(savingsOnly(g)?0:s.ongoing)/100)/12+swing);
@@ -161,10 +166,10 @@ const PlanJourney=(()=>{
 
 
 const M27 = (() => {
-  // ---- marktveronderstellingen (VERSIE 2026-08.4) ----
+  // ---- marktveronderstellingen (VERSIE 2026-11.1) ----
   const INFLATIE = 0.02;
   const nom = (r) => (1.0 + r) * (1.0 + INFLATIE) - 1.0;
-  const MV = { inflatie: INFLATIE, aandelen: nom(0.045), obligaties: nom(0.010), gm: 90.0, gs: 9.5 };
+  const MV = { inflatie: INFLATIE, aandelen: NORTE_AANDELEN_NOMINAAL, obligaties: nom(0.010), gm: 90.0, gs: 9.5 };
   const MAX_LEEFTIJD = 110, SPAARRENTE = 0.0086, POT_JAREN = 3, MND = 12, STAP = 0.06, GESPREKSPUNT = 0.045;
   const MIX = { sparen: 0.00, defensief: 0.30, neutraal: 0.50, dynamisch: 0.80, agressief: 1.00 };
   const VOLG = ['sparen', 'defensief', 'neutraal', 'dynamisch', 'agressief'];

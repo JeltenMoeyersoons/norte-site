@@ -8,11 +8,11 @@
 
   zet('rendement-simulatie', {
     titel: 'Met welk rendement rekent de simulatie?',
-    inleiding: 'Met 6,59 procent per jaar voor aandelen en 3,02 procent voor obligaties, vóór kosten en belastingen. Uw profiel bepaalt hoeveel van elk. Het zijn vaste aannames, geen belofte.'
+    inleiding: 'Voor aandelen telt Norte twee ramingen even zwaar mee. De Horizon-enquête bundelt de verwachtingen van beleggingsprofessionals. Aswath Damodaran, professor aan NYU Stern, leidt zijn raming af uit de beurskoersen en verwachte uitkeringen. Daarmee rekent de simulatie voor aandelen met 6,40 procent per jaar vóór kosten en belastingen.'
   });
   zet('aannames', {
     titel: 'Hoe rekent uw plan?',
-    inleiding: 'Met vaste verwachte opbrengsten: 4,5 procent per jaar na inflatie voor aandelen, 1 procent voor obligaties en 0,86 procent rente voor sparen. Uw aanpak bepaalt de mix en het marktverloop bevat dalingen. Het is een berekening, geen voorspelling.'
+    inleiding: 'Met vaste verwachte opbrengsten: 4,31 procent per jaar na inflatie voor aandelen, 1 procent voor obligaties en 0,86 procent rente voor sparen. Uw aanpak bepaalt de mix en het marktverloop bevat dalingen. Het is een berekening, geen voorspelling.'
   });
   zet('daling', {
     titel: 'Wat als de markt daalt? Dalingen en herstel',

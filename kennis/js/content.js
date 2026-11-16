@@ -972,21 +972,27 @@ artikels: [
   titel:'Met welk rendement rekent de simulatie? De aannames achter uw bedrag, in gewone taal',
   inleiding:'Een simulatie toont welk bedrag u op een bepaald moment zou kunnen hebben. Dat bedrag komt uit een berekening met vaste aannames. Hier leest u welke, waarom ze zo gekozen zijn, en wat ze niet zeggen.',
   kernidee:'Het bedrag in de simulatie is een berekening onder aannames, geen belofte. Het is bruto: zonder kosten en zonder belastingen.',
-  beeld:{ type:'stroom', stappen:['Een verwacht rendement per soort belegging', 'Een mix die past bij uw profiel', 'Minder risico naarmate uw doel nadert', 'Een marktpad met dalingen'], noot:'Vier stappen achter elk bedrag in de simulatie.', bijschrift:'Hoe de simulatie tot een bedrag komt.' },
+  beeld:{ type:'stroom', stappen:['Een verwacht rendement per soort belegging', 'Een mix die past bij uw profiel', 'Minder risico naarmate uw doel nadert', 'Een marktpad met dalingen'], noot:'Vier stappen achter elk bedrag in de simulatie.' },
   tekst:`
-<p>Niemand weet wat beleggingen de komende jaren opbrengen. Een simulatie moet dus iets veronderstellen. Dat is niet erg, zolang u weet wat. Daarom zetten we de aannames hier op een rij.</p>
-
 <h2>Wat we per soort belegging verwachten</h2>
-<p>De simulatie rekent met een vast rendement per jaar: 6,59 procent voor aandelen en 3,02 procent voor obligaties. Geld dat op een spaarrekening staat, groeit met 0,86 procent per jaar. Het zijn vaste uitgangspunten van de Norte-rekenkern. Ze zijn geen resultaat van een bestaand fonds en geen belofte; andere instellingen werken met andere getallen.</p>
+<p>De simulatie rekent met 6,40 procent per jaar voor aandelen, 3,02 procent voor obligaties en 0,86 procent voor spaargeld. Dat zijn bruto rekenaannames. Wat u werkelijk ontvangt, hangt af van onder meer het marktverloop, kosten en belastingen.</p>
+<div class="disc"><button type="button" class="disc-knop" aria-expanded="false" aria-controls="norte-rendementsbronnen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span>Bekijk waarop uw simulatie rekent</span></button><div class="disc-paneel" id="norte-rendementsbronnen" data-dicht><div class="disc-binnen">
+<ol>
+<li><strong>Horizon-enquête (editie 2026).</strong> De verwachting voor grote Amerikaanse bedrijven bedraagt 6,39 procent per jaar over tien jaar. Boven de gebruikte Amerikaanse basisrente van 3,95 procent blijft 2,44 procentpunt vergoeding voor aandelenrisico over.</li>
+<li><strong>Aswath Damodaran (1 januari 2026).</strong> Uit beurskoersen en verwachte uitkeringen volgt voor dezelfde markt een verwacht rendement van 8,41 procent. Boven diezelfde basisrente is dat 4,46 procentpunt.</li>
+<li><strong>Beide ramingen tellen even zwaar.</strong> Het gemiddelde is 3,45 procentpunt. Norte gebruikt de Amerikaanse markt als referentie voor de aandelenaanname.</li>
+<li><strong>Een basisrente in euro.</strong> Bij dat gemiddelde telt Norte 2,948 procent voor tienjarig overheidspapier met AAA-rating uit de eurozone (ECB, 31 december 2025). Afgerond komt de aanname op 6,40 procent per jaar.</li>
+</ol>
+</div></div></div>
 
 <h2>Uw profiel bepaalt de mix</h2>
 <p>Hoeveel [[aandeel|aandelen]] er in uw simulatie zitten, hangt af van het profiel dat u kiest:</p>
 <ul>
 <li>Sparen: alles op de spaarrekening.</li>
-<li>Defensief: 30 procent aandelen, de rest obligaties. Samen ongeveer 4,1 procent per jaar.</li>
-<li>Neutraal: 50 procent aandelen. Ongeveer 4,8 procent per jaar.</li>
-<li>Dynamisch: 80 procent aandelen. Ongeveer 5,9 procent per jaar.</li>
-<li>Agressief: alleen aandelen. 6,59 procent per jaar.</li>
+<li>Defensief: 30 procent aandelen, de rest obligaties. Samen ongeveer 4,0 procent per jaar.</li>
+<li>Neutraal: 50 procent aandelen. Ongeveer 4,7 procent per jaar.</li>
+<li>Dynamisch: 80 procent aandelen. Ongeveer 5,7 procent per jaar.</li>
+<li>Agressief: alleen aandelen. 6,40 procent per jaar.</li>
 </ul>
 <p>Meer aandelen betekent een hoger verwacht rendement, maar ook grotere schommelingen onderweg.</p>
 
@@ -1011,8 +1017,11 @@ artikels: [
 <p>Gebruik de simulatie om te vergelijken: wat doet een hoger maandbedrag, een langere termijn of een rustiger profiel? Voor een eerlijk en volledig beeld, met kosten en belastingen voor uw situatie, neemt u best contact op met een financieel adviseur.</p>
 `,
   bronnen:[
-    { label:'Rekenmethode: Norte-rekenkern, M27 marktveronderstellingen versie 2026-08.4 (ongewijzigd). Aandelen 6,59 %, obligaties 3,02 % per jaar nominaal (reëel 4,5 % en 1 % bij 2 % inflatie); spaarrente 0,86 %. Prototypeparameters, niet onafhankelijk gevalideerd.', url:null },
-    { label:'Rekenvoorbeeld: defensief 0,3 × 6,59 + 0,7 × 3,02 ≈ 4,1 %; neutraal 0,5 × 6,59 + 0,5 × 3,02 ≈ 4,8 %; dynamisch 0,8 × 6,59 + 0,2 × 3,02 ≈ 5,9 % per jaar, vóór kosten en belasting en zonder afbouw.', url:null },
+    { label:'Horizon Actuarial, Survey of Capital Market Assumptions 2026, tabel 3. Tienjarige raming voor US Equity – Large Cap.', url:'https://www.horizonactuarial.com/_files/ugd/f76a4b_a73ade7e6ba748f192d531c974bbea2a.pdf?index=true#page=5' },
+    { label:'Aswath Damodaran (NYU Stern), berekening van de impliciete risicopremie op 1 januari 2026.', url:'https://pages.stern.nyu.edu/~adamodar/pdfiles/blog/DataUpdate4for2026.pdf' },
+    { label:'Europese Centrale Bank, tienjarige AAA-spotrente in euro op 31 december 2025.', url:'https://data.ecb.europa.eu/data/datasets/YC/YC.B.U2.EUR.4F.G_N_A.SV_C_YM.SR_10Y' },
+    { label:'Rekenmethode: Norte-rekenkern, M27 marktveronderstellingen versie 2026-11.1. Aandelen 6,40 %, obligaties 3,02 % per jaar nominaal (reëel 4,31 % en 1 % bij 2 % inflatie); spaarrente 0,86 %. Prototypeparameters, niet onafhankelijk gevalideerd.', url:null },
+    { label:'Rekenvoorbeeld: defensief 0,3 × 6,40 + 0,7 × 3,02 ≈ 4,0 %; neutraal 0,5 × 6,40 + 0,5 × 3,02 ≈ 4,7 %; dynamisch 0,8 × 6,40 + 0,2 × 3,02 ≈ 5,7 % per jaar, vóór kosten en belasting en zonder afbouw.', url:null },
     { label:'Afbouw volgens de termijn (rekenkern, horizonPassend): minder dan 3 jaar sparen, minder dan 8 jaar defensief, minder dan 15 jaar neutraal, minder dan 25 jaar dynamisch, vanaf 25 jaar agressief; nooit hoger dan het gekozen profiel.', url:null },
     { label:'Wikifin (FSMA) — Welk rendement kan je verwachten van een belegging?', url:'https://www.wikifin.be/nl/sparen-en-beleggen/hoe-beleggen-en-risicospreiding/hoe-beleggen/welk-rendement-kan-je-verwachten' }
   ],
@@ -1028,7 +1037,7 @@ artikels: [
 <p>Een berekening over twintig jaar kan niet zonder aannames. Niemand weet wat aandelen en obligaties de komende decennia opbrengen, of hoe de prijzen evolueren. Een plan moet dus iets veronderstellen. De vraag is niet of er aannames zijn, maar welke, en of ze zichtbaar zijn.</p>
 
 <h2>De uitgangspunten aan de basis</h2>
-<p>Het Norte-plan is een prototype, en zijn rekenkern werkt met vaste marktveronderstellingen. Voor aandelen is dat een reëel rendement van 4,5 procent per jaar, voor obligaties 1 procent, en voor sparen een rente van 0,86 procent. Met een aangenomen inflatie van 2 procent per jaar worden de beleggingsrendementen omgerekend naar euro’s van later: 6,59 procent voor aandelen en 3,02 procent voor obligaties.</p>
+<p>Het Norte-plan is een prototype, en zijn rekenkern werkt met vaste marktveronderstellingen. Voor aandelen is dat een reëel rendement van 4,31 procent per jaar, voor obligaties 1 procent, en voor sparen een rente van 0,86 procent. Met een aangenomen inflatie van 2 procent per jaar worden de beleggingsrendementen omgerekend naar euro’s van later: 6,40 procent voor aandelen en 3,02 procent voor obligaties.</p>
 <p>Het zijn parameters van dit prototype. Ze zijn geen gemeten resultaat van een fonds, geen belofte, en niet door een onafhankelijke instelling gevalideerd als verwachting voor de komende jaren. Andere instellingen werken met andere getallen.</p>
 
 <h2>De aanpak bepaalt de mix</h2>
@@ -1050,8 +1059,8 @@ artikels: [
 <p>De sterkte van een plangrafiek zit in het vergelijken. Wat doet een hoger maandbedrag, een langere termijn, een rustigere aanpak, een procent minder kosten? Zo ziet u welk effect één gewijzigde invoer binnen hetzelfde model heeft. Ook het verschil blijft afhankelijk van de aannames; het is geen voorspelling van uw voordeel in de werkelijkheid. Lees het eindbedrag als een mogelijke uitkomst onder deze uitgangspunten, en kijk geregeld opnieuw, met de werkelijke waarden van dat moment.</p>
 `,
   bronnen:[
-    { label:'Rekenmethode: js/planbron-koopkracht.js, M27 marktveronderstellingen versie 2026-08.4 (ongewijzigd). Inflatie 2 %; nominaal = (1 + reëel) × 1,02 − 1; aandelen reëel 4,5 % (nominaal 6,59 %), obligaties reëel 1 % (3,02 %), spaarrente 0,86 %; aandelendeel sparen 0, defensief 30, neutraal 50, dynamisch 80, agressief 100 %; gemodelleerd marktpad met historisch geïnspireerde voorbeeldschokken, geen Monte Carlo. Prototypeparameters, niet onafhankelijk gevalideerd.', url:null },
-    { label:'Rekenvoorbeeld: neutraal 0,5 × 6,59 + 0,5 × 3,02 ≈ 4,8 %; dynamisch 0,8 × 6,59 + 0,2 × 3,02 ≈ 5,9 % per jaar, vóór kosten en zonder glijpad.', url:null },
+    { label:'Rekenmethode: js/planbron-koopkracht.js, M27 marktveronderstellingen versie 2026-11.1. Inflatie 2 %; nominaal = (1 + reëel) × 1,02 − 1; aandelen reëel 4,31 % (nominaal 6,40 %), obligaties reëel 1 % (3,02 %), spaarrente 0,86 %; aandelendeel sparen 0, defensief 30, neutraal 50, dynamisch 80, agressief 100 %; gemodelleerd marktpad met historisch geïnspireerde voorbeeldschokken, geen Monte Carlo. Prototypeparameters, niet onafhankelijk gevalideerd.', url:null },
+    { label:'Rekenvoorbeeld: neutraal 0,5 × 6,40 + 0,5 × 3,02 ≈ 4,7 %; dynamisch 0,8 × 6,40 + 0,2 × 3,02 ≈ 5,7 % per jaar, vóór kosten en zonder glijpad.', url:null },
     { label:'Wikifin (FSMA) — Welk rendement kan je verwachten van een belegging?', url:'https://www.wikifin.be/nl/sparen-en-beleggen/hoe-beleggen-en-risicospreiding/hoe-beleggen/welk-rendement-kan-je-verwachten' },
     { label:'J.P. Morgan Asset Management — Principles for long-term investing, Europe 2026 (inspiratie; geen bron voor de Norte-uitgangspunten)', url:'https://cdn.jpmorganfunds.com/content/dam/jpm-am-aem/emea/regional/en/insights/market-insights/mi-long-term-investing-principles-ce-en.pdf' }
   ],

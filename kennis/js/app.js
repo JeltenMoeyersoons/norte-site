@@ -965,7 +965,7 @@ function lijnGrafiek(jaren, reeksen, aria) {
     ${reeksen.map(r => `<path d="${r.pts.map(([t, v], k) => `${k ? 'L' : 'M'}${X(t).toFixed(1)},${Y(v).toFixed(1)}`).join('')}" class="${r.cls}"/>`).join('')}</svg>`;
 }
 const sleutel = items => `<p class="kk-sleutel">${items.map(([cls, t]) => `<span><i class="kk-lijn ${cls}" aria-hidden="true"></i>${t}</span>`).join('')}</p>`;
-const PLAN_AANNAME = 'Voorbeeld uit het Norte-plan, met rekenaannames van 6,59\u00a0% voor aandelen en 3,02\u00a0% voor obligaties per jaar, vóór kosten en belasting. De verdeling wordt rustiger richting het doel. Het model bevat voorbeeldschokken, geen voorspeld beursverloop. De werkelijke uitkomst kan lager zijn, ook lager dan uw inleg.';
+const PLAN_AANNAME = 'Voorbeeld uit het Norte-plan, met rekenaannames van 6,40\u00a0% voor aandelen en 3,02\u00a0% voor obligaties per jaar, vóór kosten en belasting. De verdeling wordt rustiger richting het doel. Het model bevat voorbeeldschokken, geen voorspeld beursverloop. De werkelijke uitkomst kan lager zijn, ook lager dan uw inleg.';
 function planKoopkrachtHTML(x) {
   if (!PB()) return '<p class="aanname">De koopkrachtfunctie van het plan is niet geladen.</p>';
   const p = planVoorbeeld({ horizon:PLAN_S0 + x.jaren, destination:null, lump:x.bedrag }, { inflation:x.inflatie });
