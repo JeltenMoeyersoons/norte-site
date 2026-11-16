@@ -60,7 +60,7 @@ function initializeClientFlow(){
   originalRender(restore);const isFlow=location.hash.startsWith('#voorbereiden/');document.body.classList.toggle('cf-mode',isFlow);document.body.classList.toggle('cf-room-mode',isFlow&&location.hash.split('/')[1]==='2'&&!frame());document.body.classList.toggle('cf-wide',isFlow&&frame()==='beeld');if(isFlow&&frame()==='beeld')mountGraph();};
  function explain(kind){
   const n=Number(location.hash.split('/')[1])||1,f=frame();let title='',html='';
-  if(kind==='assumptions'){title='De cijfers in dit ontwerp';html='<p>Deze lokale ontwerpversie gebruikt de bevroren rekenbron 2026-08.4 uit het Claude-artifact. Het verloop is illustratief. Kosten, fiscaliteit en toekomstige rendementen zijn geen persoonlijke toezegging.</p><p>De nieuwe bronmethodiek uit het uitlegartikel is nog niet op deze kern aangesloten. Er is geen fiscale voordeelberekening toegevoegd.</p>';}
+  if(kind==='assumptions'){title='De cijfers in dit ontwerp';html='<p>De berekening gebruikt bruto jaaraannames van 6,40 procent voor aandelen, 3,02 procent voor obligaties en 0,86 procent voor spaargeld. Het marktverloop is illustratief.</p><p><a href="/kennis/#/artikel/rendement-simulatie">Lees hoe Norte het aandelenrendement berekent</a>.</p>';}
   else if(n===1&&f!=='leeftijd'){title='Begin bij uw doelen';html='<p>Kies één of meer doelen. Daarna bepaalt u wanneer u ze wilt bereiken en wat u wilt opzijzetten.</p>';}
   else if(n===1){title='Uw leeftijd op de tijdlijn';html='<p>Uw geboortedatum bepaalt uw leeftijd op de tijdlijn en de momenten waarop u uw doelen wilt bereiken.</p>';}
   else if(n===2&&!f){title='Inkomen en uitgaven';html='<p>Het verschil tussen uw netto inkomen en uitgaven geeft uw vrije maandruimte. Zo ziet u welk deel u wilt inzetten.</p>';}

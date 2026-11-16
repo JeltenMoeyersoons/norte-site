@@ -4,8 +4,12 @@
    and pinned source hash documented in source receipt. */
 window.NorteQuickModel=(()=>{
   'use strict';
-  const source='M27 2026-08.4 — relatieve opbouw';
-  const assumptions=Object.freeze({inflation:2,savingsRate:.86,stockNominal:6.59,bondNominal:3.02,costsIncluded:false,taxesIncluded:false});
+  const source='M27 2026-11.1 — relatieve opbouw';
+// 2026-11.1 · Geannualiseerde Amerikaanse aandelenramingen, omgerekend naar een eurobasis.
+// Horizon 2026, 10 jaar: 6,39%. Damodaran 1-1-2026: 8,41% verwacht en 3,95% USD-basis.
+// ECB AAA, 10 jaar, 31-12-2025: 2,9480486243%. De twee risicopremies wegen elk 50%.
+const NORTE_AANDELEN_NOMINAAL = 0.029480486243 + ((0.0639 - 0.0395) + (0.0841 - 0.0395)) / 2;
+  const assumptions=Object.freeze({inflation:2,savingsRate:.86,stockNominal:NORTE_AANDELEN_NOMINAAL * 100,bondNominal:3.02,costsIncluded:false,taxesIncluded:false});
   const calculate=(input)=>{
     const M=window.NortePlanbron?.M27;if(!M)return {ok:false,error:'De berekening is niet beschikbaar. Probeer opnieuw.'};
     const {years,monthly=0,lump=0,target=null,strategy='neutraal',real=false}=input||{};
