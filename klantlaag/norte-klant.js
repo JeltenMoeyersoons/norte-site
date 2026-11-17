@@ -408,8 +408,9 @@
     pensioenZin(); campagne(); invul();
     var heeft = !!bewaard();
     document.querySelectorAll('.my-plan').forEach(function (mp) {
-      if (mp.hidden === heeft) mp.hidden = !heeft; var d = heeft ? '' : 'none'; if (mp.style.display !== d) mp.style.display = d; if (mp.classList.contains('nkl-aan') !== heeft) mp.classList.toggle('nkl-aan', heeft);
-      if (!mp._nkl) { mp._nkl = true; mp.addEventListener('click', function (e) { e.preventDefault(); mijnPlan(); }); }
+      var zichtbaar = heeft || mp.dataset.alwaysVisible === 'true';
+      if (mp.hidden === zichtbaar) mp.hidden = !zichtbaar; var d = zichtbaar ? '' : 'none'; if (mp.style.display !== d) mp.style.display = d; if (mp.classList.contains('nkl-aan') !== heeft) mp.classList.toggle('nkl-aan', heeft);
+      if (!mp._nkl && mp.dataset.planRoute !== 'actueel') { mp._nkl = true; mp.addEventListener('click', function (e) { e.preventDefault(); mijnPlan(); }); }
     });
   }
 
