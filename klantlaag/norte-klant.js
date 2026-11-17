@@ -169,7 +169,76 @@
     if (C.fout && C.fout[n]) { delete C.fout[n]; e.target.classList.remove('fout'); var er = document.getElementById('nkl-e-' + n); if (er) er.remove(); }
     if (n === 'pc') { var ks = kantoren(), oud = C.kant; C.kant = ks.length ? ks[0].i : null; if (oud !== C.kant && C.dag !== 'ander') { C.dag = null; C.uur = null; zetSlot(); } if (ks.length && C.fout) delete C.fout.kant; contactTeken('#nkl-pc'); }
   });
+  function deelMetKantoor(simulatie, stukken) {
+    var x = open('Deel met uw adviseur');
+    x.p.dataset.modus = 'contact-informatie';
+    x.f.textContent = '';
+    var k = simulatie.k || {};
+    var aanvraag = crypto.randomUUID();
+    var form = document.createElement('form');
+    form.id = 'nkl-kantoor-aanvraag';
+    form.innerHTML = '<div class="nkl-f2"><label for="nkl-ontvanger">Kantoor</label>'
+      + '<select class="nkl-in" id="nkl-ontvanger" name="kantoor" required>'
+      + '<option value="">Kies uw kantoor</option><option value="familie-kapitaal">Familie Kapitaal · Wichelen</option></select></div>'
+      + veld('nkl-deel-voornaam', 'voornaam', 'Voornaam', 'text', k.voornaam, '', ' name="voornaam" maxlength="100" autocomplete="given-name" required')
+      + veld('nkl-deel-achternaam', 'achternaam', 'Achternaam', 'text', k.achternaam, '', ' name="achternaam" maxlength="100" autocomplete="family-name" required')
+      + veld('nkl-deel-mail', 'email', 'E-mailadres', 'email', k.email, '', ' name="email" maxlength="254" autocomplete="email" required')
+      + veld('nkl-deel-tel', 'tel', 'Telefoon (optioneel)', 'tel', k.tel, '', ' name="tel" maxlength="40" autocomplete="tel"')
+      + (Array.isArray(stukken) && stukken.length ? '<details><summary>Documenten om bij de hand te houden</summary><ul>'
+        + stukken.map(function (stuk) { return '<li>' + esc(stuk) + '</li>'; }).join('') + '</ul></details>' : '')
+      + '<label class="nkl-ander"><input name="deel" type="checkbox" required> Ik deel mijn ingevulde gegevens en simulatie met Familie Kapitaal.</label>'
+      + '<p class="nkl-note"><a class="nkl-l" href="/privacy.html#delen-met-kantoor" target="_blank" rel="noopener">Privacy bij het delen</a></p>'
+      + '<p class="nkl-note" role="alert" data-melding></p>';
+    x.b.replaceChildren(form);
+    var knop = document.createElement('button');
+    knop.type = 'submit';
+    knop.className = 'nkl-go';
+    knop.setAttribute('form', form.id);
+    knop.textContent = 'Verstuur naar mijn kantoor';
+    x.f.append(knop);
+    var bezig = false;
+    form.addEventListener('submit', async function (evt) {
+      evt.preventDefault();
+      if (bezig || !form.reportValidity()) return;
+      var values = Object.fromEntries(new FormData(form));
+      var melding = form.querySelector('[data-melding]');
+      melding.textContent = '';
+      bezig = true;
+      knop.disabled = true;
+      knop.textContent = 'Versturen…';
+      try {
+        var response = await fetch('https://nortetestkantorendaxdudhj-aanmelden.functions.fnc.nl-ams.scw.cloud/overdracht/v1', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'omit',
+          referrerPolicy: 'no-referrer',
+          body: JSON.stringify({ aanvraag: aanvraag, kantoor: values.kantoor, toestemming: 'familiekapitaal-2026-11-v1',
+            contact: { voornaam: values.voornaam, achternaam: values.achternaam, email: values.email, tel: values.tel },
+            simulatie: simulatie })
+        });
+        var result = await response.json();
+        if (response.status === 409) aanvraag = crypto.randomUUID();
+        if (!response.ok || !result.ontvangen) throw new Error(result.melding || 'Verzenden lukt nu niet. Probeer opnieuw.');
+        if (!form.isConnected || !x.p.classList.contains('open')) return;
+        x.t.textContent = 'Ontvangen door Familie Kapitaal';
+        x.b.innerHTML = '<p role="status">Uw adviseur kan uw simulatie openen en contact met u opnemen.</p>';
+        x.f.innerHTML = '<button type="button" class="nkl-go">Sluiten</button>';
+        x.f.firstElementChild.addEventListener('click', sluit);
+        x.t.focus();
+      } catch (error) {
+        if (!form.isConnected) return;
+        melding.textContent = error instanceof TypeError ? 'Verzenden lukt nu niet. Probeer opnieuw.' : error.message;
+        bezig = false;
+        knop.disabled = false;
+        knop.textContent = 'Opnieuw versturen';
+      }
+    });
+  }
   function contact(context, stukken) {
+    var snapshot = window.NorteKlantDossier && window.NorteKlantDossier();
+    if (snapshot && (snapshot.pl.goals.length || context === 'fis')) {
+      deelMetKantoor(snapshot, stukken);
+      return;
+    }
+
     if (context === 'fis') {
       var fiscaal = open('Laat uw fiscale ruimte nakijken');
       var onderwerp = encodeURIComponent('Aanvraag fiscale controle via Norte');
