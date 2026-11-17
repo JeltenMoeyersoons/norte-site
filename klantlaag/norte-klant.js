@@ -484,9 +484,17 @@
     w.querySelector('button').addEventListener('click', mijnPlan);
     taak.insertBefore(w, h1);
   }
-  /* afzender: wie via een kantoor komt (?kantoor=), ziet dat kantoor in de kop en vooraan in het afspraakpaneel */
-  var KSLUG = { 'familie-kapitaal': 0, oost: 1, noord: 2, zuid: 3 };
-  function afzender() {}
+  /* Herkenbare kantoornaam bij een simulatie via Familie Kapitaal. */
+  function afzender() {
+    if (!location.pathname.endsWith('/Klantreis.dc.html')) return;
+    if (new URLSearchParams(location.search).get('kantoor') !== 'familie-kapitaal') return;
+    var kop = document.querySelector('header.top .who');
+    if (!kop || kop.querySelector('.nkl-fk-naam')) return;
+    var naam = document.createElement('span');
+    naam.className = 'nkl-fk-naam';
+    naam.textContent = 'Familie Kapitaal';
+    kop.appendChild(naam);
+  }
   function start() {
     if (IN_FRAME) return;
     welkomTerug(); afzender();
