@@ -9873,6 +9873,13 @@ Plan26.prototype.render = function (view) {
 K49.PLANKEY = (window.__pvPfx || 'norte-preview-20261109-r1') + ':klantreis-k49';
 K49.payload = (c) => ({v:1,k:c.state.k,fin:c.state.fin,v02:c.state.v02,beo:c.state.beo,seen:c.seen,lees:c.state.lees,dd:c.state.dd,bnoot:c.state.bnoot,pl:c.state.pl});
 K49.clone = (v) => JSON.parse(JSON.stringify(v));
+window.NorteKlantDossier = () => {
+  const c = typeof PV5 !== 'undefined' && PV5.c;
+  if (!c || !K49.on(c) || c.props.modus !== 'klant') return null;
+  const p = K49.payload(c);
+  return { v: 1, k: K49.clone(p.k), fin: K49.clone(p.fin), v02: p.v02 === true, pl: K49.clone(p.pl) };
+};
+
 K49.simSig = g => JSON.stringify(['soort','naam','h','hBron','mm','ee','kid','kind','wens','wensStart','mode','eind','inkStart','inkTot','lead'].map(k=>[k,g[k]===undefined?null:g[k]]));
 const K49_existingNaarPlan = Component.prototype.k49naarPlan;
 Component.prototype.k49naarPlan = function(extraGoal) {
@@ -10483,6 +10490,7 @@ const PV4 = {
       // ronde 60: één blok met een volgorde — het plan, dan bewaren of tonen aan uw partner, dan verder lezen
       c.insertAdjacentHTML('beforeend', '<div class="pv10stap"><h3>Maak er een volledig plan van</h3>'
         + '<button type="button" class="pv10plan" data-pv10="plan"><span>Mijn plan maken</span><span aria-hidden="true">→</span></button>'
+        + '<button type="button" class="pv10bt" data-pv10="adv">Bespreek met mijn adviseur</button>'
         + '<button type="button" class="pv10bt" data-pv10="bt"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5V10M5 7l3 3 3-3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Download of deel</span></button>'
         + '<a class="pv10lees" href="/kennis/#/" data-pv10="lees">Begrijp uw resultaat: 3 korte stukken <span aria-hidden="true">→</span></a></div>');
     }
@@ -11353,6 +11361,7 @@ document.addEventListener('click', (e) => {
   const w = a.getAttribute('data-pv10');
   if ((w === 'plan' || w === 'bt') && document.body.classList.contains('pv4-poort')) { e.preventDefault(); PV61.blok(); return; }
   // de oorspronkelijke knop blijft staan bij het hertekenen en verzorgt zelf de overgang "Nu wordt het uw plan"
+  if (w === 'adv' && window.NorteKlant) { window.NorteKlant.contact('sim'); return; }
   if (w === 'plan') { const b = document.querySelector('#pvVervolg [data-pv="plan"]'); if (b) b.click(); return; }
   if (w === 'bt') { if (window.NorteKlant && window.NorteKlant.bewaarTonen) window.NorteKlant.bewaarTonen({ download: () => { const nb = document.getElementById('nextBtn'); if (nb) nb.click(); }, pdfBestand: NorteAstra.pdfBestand, wat: PV4.wat }); return; }
   if (w === 'lees' && !(e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1)) { e.preventDefault(); PV5.lees('start'); }
