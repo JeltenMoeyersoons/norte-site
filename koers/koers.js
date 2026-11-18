@@ -69,7 +69,7 @@ function home(){
 <a class="fiscal" href="/ontwerp/klantreis-preview-09-11/?leeg=1&doel=fiscaal">Fiscaal sparen verkennen <span aria-hidden="true">→</span></a>
 </div>
 <aside class="knowledge" aria-labelledby="knowledge-title">
-<a href="/kennis/?v=kennis-20261106-v2#/" class="knowledge-link"><figure><img src="../assets/klantenstart/levensmoment-aan-zee.jpg" width="6240" height="4160" alt="Een ouder en twee kinderen aan zee."></figure><div class="knowledge-text"><h2 id="knowledge-title">Sparen en beleggen begrijpen</h2><span class="read">Ontdek de artikels <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></span></div></a>
+<a href="/kennis/?v=kennis-20261106-v2#/" class="knowledge-link"><figure><img src="../assets/klantenstart/strand-gezin.jpg" width="1344" height="896" alt="Een moeder en twee kinderen wandelen langs de zee."></figure><div class="knowledge-text"><h2 id="knowledge-title">Sparen en beleggen begrijpen</h2><span class="read">Ontdek de artikels <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></span></div></a>
 </aside>
 </section>`;
 }
